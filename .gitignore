@@ -1,0 +1,37 @@
+# Logs e arquivos temporários
+*.log
+*.tmp
+
+# Dependências do PHP (Composer)
+vendor/
+
+# Dependências do Node.js (se aplicável)
+node_modules/
+
+# Diretórios de build
+dist/
+build/
+
+# Configurações específicas de IDE
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos sensíveis
+*.env
+**/config.php
+
+# Caches
+.cache/
+.sass-cache/
+
+# Outros
+*.bak
+*.swp
+
+# Banco de dados (se houver dumps locais)
+*.sql
+/database/backups/
