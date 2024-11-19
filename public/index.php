@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html>
+<html lang="pt-br">
 	<head>
 		<title>CampusCare Unipe</title>
 		<meta charset="utf-8" />
