@@ -6,7 +6,19 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/buttons.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script>
+        function selecionarBloco(bloco) {
+            document.getElementById('bloco').value = bloco;
+            document.getElementById('etapaLugar').style.display = 'block';
+        }
+
+        function selecionarLugar(lugar) {
+            document.getElementById('lugar').value = lugar;
+            document.getElementById('etapaDetalhes').style.display = 'block';
+        }
+    </script>
 	</head>
 	<body class="is-preload">
 
@@ -18,35 +30,31 @@
 						<a href="#" class="icon solid fa-home"><span>Home</span></a>
 						<a href="#work" class="icon solid fa-folder"><span>Denúncias</span></a>
 						<a href="#contact" class="icon solid fa-envelope"><span>Contato</span></a>
-						<!--  <a href="https://twitter.com/ajlkn" class="icon brands fa-twitter"><span>Twitter</span></a>   -->
+						
 					</nav>
 
 				<!-- Main -->
-					<div id="main">
+				<div id="main">
 
-						<!-- Me -->
-							<article id="home" class="panel intro">
-								<header>
-									<h1>CampusCare Unipe</h1>
-									<p>Seu Site de enúncias</p>
-								</header>
-								<a href="#work" class="jumplink pic">
-									<span class="arrow icon solid fa-chevron-right"><span>See my work</span></span>
-									<img src="images/me.jpg" alt="" />
-								</a>
-							</article>
+<!-- Me -->
+	<article id="home" class="panel intro">
+		<header>
+			<h1>CampusCare Unipe</h1>
+			<p>Seu Site de enúncias</p>
+		</header>
+		<a href="#work" class="jumplink pic">
+			<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
+			<img src="/CampusCare-Unipe1/00-public/assets/images/me.jpg"/>
+		</a>
+	</article>
 
-						<!-- Work -->
+						<!-- Denúncias -->
 							<article id="work" class="panel">
-								<header>
-									<h2>Mapa</h2>
-								</header>
-								<p>
-									Mapa da UNIPÊ
-								</p>
-								<section>
-										<div class="image"><img src="images/mapa.png" alt="Imagem da UNIPÊ">
-									</div>
+							<form action="processar.php" method="post">
+
+							</form>
+							<section>
+							<?php include 'blocos.php'; ?>
 								</section>
 							</article>
 
@@ -83,7 +91,7 @@
 				<!-- Footer -->
 					<div id="footer">
 						<ul class="copyright">
-							<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li>&copy; CampusCare.</li>
 						</ul>
 					</div>
 
