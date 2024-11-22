@@ -58,7 +58,7 @@
 								</section>
 							</article>
 
-						<!-- Contact -->
+						<!-- Contato -->
 							<article id="contact" class="panel">
 								<header>
 									<h2>Contate-nos</h2>
