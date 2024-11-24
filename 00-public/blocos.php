@@ -64,7 +64,17 @@
             <button type="button" class="btn-12" onclick="voltarEtapa('etapaLugar', 'etapaBloco')"><span>Voltar</span><span>Voltar</span></button>
         </div>
 
-        <!-- Etapa 3: Detalhes -->
+        <!-- Etapa 3: Tipo de Assistência -->
+        <div class="" id="etapaAssistencia">
+            <h2>Tipo de Assistência</h2>
+            <button type="button" class="btn-12" onclick="selecionarAssistencia('manutencao')">Manutenção</button>
+            <button type="button" class="btn-12" onclick="selecionarAssistencia('limpeza')">Limpeza</button>
+            <button type="button" class="btn-12" onclick="selecionarAssistencia('seguranca')">Segurança</button>
+            <button type="button" class="btn-12" onclick="selecionarAssistencia('saude')">Saúde</button>
+            <input type="hidden" name="tipo_assistencia" id="tipo_assistencia">
+        </div>
+
+        <!-- Etapa 4: Detalhes -->
         <div class="" id="etapaDetalhes">
             <h2>Detalhes do Problema</h2>
             <label for="ponto">Descreva qual o lugar:</label><br>
