@@ -1,4 +1,11 @@
-<script>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha de Blocos</title>
+
+    <script>
         function mostrarProximaEtapa(etapaAtual, etapaProxima, campoId = null, valor = null) {
             if (campoId && valor) {
                 document.getElementById(campoId).value = valor; // Define o valor do campo oculto
@@ -11,78 +18,104 @@
             document.getElementById(etapaAtual).style.display = 'none'; // Esconde a etapa atual
             document.getElementById(etapaAnterior).style.display = 'block'; // Mostra a etapa anterior
         }
+
+        // Função de validação antes de confirmação do envio
+        function validarFormulario() {
+            // Verifica se todos os campos obrigatórios estão preenchidos
+            var bloco = document.getElementById('bloco').value;
+            var lugar = document.getElementById('lugar').value;
+            var descricao = document.getElementById('descricao').value;
+            var tipoAssistencia = document.getElementById('tipo_assistencia').value;
+
+            if (bloco === "" || lugar === "" || descricao === "" || tipoAssistencia === "") {
+                alert("Por favor, preencha todos os campos antes de enviar.");
+                return false; // Impede o envio do formulário
+            }
+
+            // Se todos os campos estiverem preenchidos, solicita confirmação
+            var confirmar = confirm("Você tem certeza que deseja enviar o formulário com as opções selecionadas?");
+            if (confirmar) {
+                // Envia o formulário se o usuário confirmar
+                document.getElementById('formulario').submit();
+            }
+        }
+
+        // Função para aplicar a cor azul e dourado nos botões de tipo de assistência
+        function selecionarTipoAssistencia(tipo) {
+            // Remove a classe 'selecionado' de todos os botões
+            var botoes = document.querySelectorAll('.tipo-assistencia-btn');
+            botoes.forEach(function(btn) {
+                btn.classList.remove('selecionado');
+            });
+
+            // Adiciona a classe 'selecionado' no botão clicado
+            var botaoSelecionado = document.getElementById(tipo);
+            botaoSelecionado.classList.add('selecionado');
+
+            // Define o valor do campo oculto para o tipo de assistência
+            document.getElementById('tipo_assistencia').value = tipo;
+        }
     </script>
-    
-    </head>
+</head>
 <body>
-    <form action="processar.php" method="post">
+    <form id="formulario" action="processar.php" method="post">
         <!-- Etapa 1: Escolher Bloco -->
         <div id="etapaBloco">
             <h2>Escolha o Bloco</h2>
-            <!-- Blocos -->
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco A')"><span>Bloco A</span><span>Bloco A</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco B')"><span>Bloco B</span><span>Bloco B</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco C')"><span>Bloco C</span><span>Bloco C</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco D')"><span>Bloco D</span><span>Bloco D</span></button>
-<br>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco E')"><span>Bloco E</span><span>Bloco E</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco F')"><span>Bloco F</span><span>Bloco F</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco G')"><span>Bloco G</span><span>Bloco G</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco H')"><span>Bloco H</span><span>Bloco H</span></button>
-<br>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco I')"><span>Bloco I</span><span>Bloco I</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco J')"><span>Bloco J</span><span>Bloco J</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco K')"><span>Bloco K</span><span>Bloco K</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco L')"><span>Bloco L</span><span>Bloco L</span></button>
-<br>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco M')"><span>Bloco M</span><span>Bloco M</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco N')"><span>Bloco N</span><span>Bloco N</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco O')"><span>Bloco O</span><span>Bloco O</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco P')"><span>Bloco P</span><span>Bloco P</span></button>
-<br>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco Q')"><span>Bloco Q</span><span>Bloco Q</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco R')"><span>Bloco R</span><span>Bloco R</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco S')"><span>Bloco S</span><span>Bloco S</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco CT')"><span>Bloco CT</span><span>Bloco CT</span></button>
-<br>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Auditório')"><span>Auditório</span><span>Auditório</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Reitoria')"><span>Reitoria</span><span>Reitoria</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Biblioteca')"><span>Biblioteca</span><span>Biblioteca</span></button>
-<br>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Ginásio')"><span>Ginásio</span><span>Ginásio</span></button>
-<button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaBloco', 'etapaLugar', 'bloco', 'Bloco EVA')"><span>Click!</span><span>EVA</span></button>
+            <?php
+                $blocos = [
+                    "Bloco A", "Bloco B", "Bloco C", "Bloco D",
+                    "Bloco E", "Bloco F", "Bloco G", "Bloco H",
+                    "Bloco I", "Bloco J", "Bloco K", "Bloco L",
+                    "Bloco M", "Bloco N", "Bloco O", "Bloco P",
+                    "Bloco Q", "Bloco R", "Bloco S", "Bloco CT",
+                    "Auditório", "Reitoria", "Biblioteca", "Ginásio",
+                    "Bloco EVA"
+                ];
 
+                foreach ($blocos as $bloco) {
+                    echo '<button type="button" class="btn-12" onclick="mostrarProximaEtapa(\'etapaBloco\', \'etapaLugar\', \'bloco\', \'' . $bloco . '\')">
+                            <span>' . $bloco . '</span>
+                          </button>';
+                }
+            ?>
         </div>
 
-        <!-- Etapa 2: Escolher Lugar -->
-        <div class="" id="etapaLugar">
+        <!-- Etapa Lugar -->
+        <div id="etapaLugar" style="display:none;">
             <h2>Escolha o Local</h2>
-            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Sala')"><span>Sala</span><span>Sala</span></button>
-            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Banheiro')"><span>Banheiro</span><span>Banheiro</span></button>
-            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Elevador')"><span>Elevador</span><span>Elevador</span></button>
+            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Sala')"><span>Sala</span></button>
+            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Banheiro')"><span>Banheiro</span></button>
+            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Elevador')"><span>Elevador</span></button>
             <br>
-            <button type="button" class="btn-12" onclick="voltarEtapa('etapaLugar', 'etapaBloco')"><span>Voltar</span><span>Voltar</span></button>
+            <!-- Botão Voltar -->
+            <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaLugar', 'etapaBloco')"><span>Voltar</span></button>
         </div>
 
-        <!-- Etapa 3: Tipo de Assistência -->
-        <div class="" id="etapaAssistencia">
-            <h2>Tipo de Assistência</h2>
-            <button type="button" class="btn-12" onclick="selecionarAssistencia('manutencao')">Manutenção</button>
-            <button type="button" class="btn-12" onclick="selecionarAssistencia('limpeza')">Limpeza</button>
-            <button type="button" class="btn-12" onclick="selecionarAssistencia('seguranca')">Segurança</button>
-            <button type="button" class="btn-12" onclick="selecionarAssistencia('saude')">Saúde</button>
-            <input type="hidden" name="tipo_assistencia" id="tipo_assistencia">
-        </div>
-
-        <!-- Etapa 4: Detalhes -->
-        <div class="" id="etapaDetalhes">
+        <!-- Etapa 3: Detalhes -->
+        <div id="etapaDetalhes" style="display:none;">
             <h2>Detalhes do Problema</h2>
-            <label for="ponto">Descreva qual o lugar:</label><br>
-            <textarea name="ponto" id="ponto" rows="2" required></textarea><br><br>
-            <label for="descricao">Descreva o problema:</label><br>
-            <textarea name="descricao" id="descricao" rows="4" required></textarea><br><br>
-            <button type="submit" class="btn-12" name="enviar"><span>Enviar</span><span>Enviar</span></button>
-            <button type="button" class="btn-12" onclick="voltarEtapa('etapaDetalhes', 'etapaLugar')"><span>Voltar</span><span>Voltar</span></button>
+
+            <label for="bloco">Bloco:</label>
+            <input type="text" id="bloco" name="bloco" readonly required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+
+            <!-- Botões de tipo de assistência com alteração de cor -->
+            <button type="button" class="btn-12 tipo-assistencia-btn" id="manutencao" onclick="selecionarTipoAssistencia('manutencao')">Registrar Manutenção</button>
+            <button type="button" class="btn-12 tipo-assistencia-btn" id="limpeza" onclick="selecionarTipoAssistencia('limpeza')">Registrar Limpeza</button>
+            <button type="button" class="btn-12 tipo-assistencia-btn" id="seguranca" onclick="selecionarTipoAssistencia('seguranca')">Registrar Segurança</button>
+            <button type="button" class="btn-12 tipo-assistencia-btn" id="saude" onclick="selecionarTipoAssistencia('saude')">Registrar Saúde</button>
+
+            <!-- Campo oculto para o tipo de assistência -->
+            <input type="hidden" id="tipo_assistencia" name="tipo_assistencia">
+
+            <!-- Botão de confirmação para enviar -->
+            <button type="button" class="btn-12 destaque" onclick="validarFormulario()">Confirmar Envio</button>
+
+            <!-- Botão Voltar -->
+            <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaDetalhes', 'etapaLugar')"><span>Voltar</span></button>
         </div>
 
         <!-- Campos ocultos -->

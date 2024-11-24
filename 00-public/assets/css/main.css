@@ -133,7 +133,7 @@ input, select, textarea {
 	}
 
 	body {
-		background-image: url("images/overlay.png"), url("images/bgs.jpg");
+		background-image: url("images/overlay.png"), url("images/bg.gif");
 		background-repeat: repeat, no-repeat;
 		background-size: auto, 100% 100%;
 		background-attachment: fixed;
@@ -435,6 +435,7 @@ input, select, textarea {
 		cursor: pointer;
 		outline: 0;
 		padding: 0.7em 1.5em 0.7em 1.5em;
+		
 	}
 
 		input[type="submit"]:hover,
@@ -578,7 +579,7 @@ input, select, textarea {
 				left: 50%;
 				bottom: -0.75em;
 				margin-left: -0.5em;
-				border-bottom: solid 0em #37a2ff; /*cor da seta*/
+				border-bottom: solid 0em #7b00ff; /*cor da seta*/
 				border-left: solid 0.5em transparent;
 				border-right: solid 0.5em transparent;
 				-moz-transition: border-bottom-width .25s ease-in-out;
@@ -718,7 +719,7 @@ input, select, textarea {
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-	background: linear-gradient(90deg, #2c46ba 0%, #2592f8 50%, #044ce7 100%);
+	background: linear-gradient(90deg, #2c46ba 0%, #2592f8 50%, #044ce7 100%); /*Cor de fundo*/
 	box-shadow: 0px 1px 0px 0px 
 	rgba(0, 0, 0, 0.25);
 	-moz-transition: min-height 0.5s ease-in-out, max-height 0.5s ease-in-out;
@@ -820,7 +821,7 @@ input, select, textarea {
 					width: 2.75em;
 					height: 2.75em;
 					background: rgba(0, 0, 0, 0.75);
-					color: #0498f4; /*Cor botão primeira página*/
+					color: #7b00ff; /*Cor botão primeira página*/
 					text-align: center;
 					line-height: 2.75em;
 					font-size: 1.5em;
@@ -862,14 +863,15 @@ input, select, textarea {
 			}
 
 				#main > .panel.intro header h1 {
-					line-height: 1.25em;
+					line-height: 1.25em; /*Altura da linha*/
 					margin-bottom: 0;
 				}
 
 				#main > .panel.intro header p {
 					letter-spacing: -0.015em;
-					font-size: 1.25em;
-					margin: 0.25em 0 0 0;
+					font-size: 2.25em;
+					margin: 2.00em 0 0 0; /*Espaçamento do texto primeira página*/
+					color: #d2cece; /*Cor da fonte da tela*/
 				}
 
 			@media screen and (max-width: 980px) {

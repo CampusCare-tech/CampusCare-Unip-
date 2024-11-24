@@ -1,3 +1,4 @@
+/* Botão estilizado */
 .btn-12 {
     position: relative;
     display: inline-block;
@@ -10,54 +11,52 @@
     text-decoration: none;
     overflow: hidden;
     transition: all 0.3s ease;
-    background: #6a11cb;
-    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(90deg, #00000097 0%, #2575fc 100%);
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
 }
+
+/* Span para centralizar o texto */
 .btn-12 span {
-    position: absolute;
-    display: block;
-}
-.btn-12 span:first-child {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-}
-.btn-12:hover span:first-child {
-    left: 100%;
-}
-.btn-12 span:last-child {
     position: relative;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
 }
+
+/* Efeito de hover */
+.btn-12:hover {
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito de clique */
+.btn-12:active {
+    transform: scale(0.95);
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Área de texto */
 textarea {
     width: 100%;
     max-width: 500px;
     padding: 10px;
     font-size: 14px;
-}
-#etapaLugar, #etapaDetalhes {
-    display: none;
-}
-.hidden {
-    display: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
-/*Etapas*/
-
-
-/* Estilo geral das etapas */
+/* Estilo das etapas */
 #etapaLugar, #etapaDetalhes {
     display: none;
     padding: 20px;
     border-radius: 10px;
-    background: linear-gradient(90deg, #cb11b8 10%, #2575fc 100%); /*cor da tela de fundo do formulário*/
+    background: linear-gradient(90deg, #cb11b8 10%, #2575fc 100%);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
     width: 90%;
@@ -74,4 +73,110 @@ textarea {
     font-family: 'Arial', sans-serif;
 }
 
+/* Ocultar etapas inativas */
+.hidden {
+    display: none;
+}
 
+
+
+
+
+/* Organização geral dos botões */
+#etapaBloco, #etapaDetalhes {
+    text-align: center; /* Centraliza os botões horizontalmente */
+    padding: 20px;
+}
+
+/* Botões gerais */
+.btn-12 {
+    display: inline-block; /* Faz os botões ficarem lado a lado */
+    margin: 10px; /* Espaçamento entre os botões */
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-12:hover {
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    transform: scale(1.05);
+}
+
+/* Destaque para botões de "Voltar" e "Enviar" */
+.btn-12[name="enviar"],
+.btn-12.voltar {
+    margin-top: 20px; /* Espaçamento superior */
+    padding: 20px 40px;
+    font-size: 20px;
+    background: linear-gradient(90deg, #ff4e00 0%, #ec9f05 100%);
+}
+
+.btn-12[name="enviar"]:hover,
+.btn-12.voltar:hover {
+    background: linear-gradient(90deg,  #ff1a1a 0%, #ff4e00 100%);
+    transform: scale(1.1);
+}
+
+
+#etapaLugar .btn-12.voltar {
+    display: block; /* Coloca o botão em uma linha separada */
+    margin: 30px auto 0; /* Centraliza horizontalmente e cria espaço acima */
+    width: 155px; /* Largura fixa para alinhamento central */
+}
+
+
+
+/* Centralização e ajuste manual do botão Voltar */
+#etapaLugar .btn-12.voltar {
+    display: block; /* Força o botão para uma nova linha */
+    margin: 30px auto 0; /* Centraliza horizontalmente e cria espaço acima */
+    width: 150px; /* Largura fixa */
+    position: relative; /* Permite ajustar com left/right */
+    left: -25px; /* Move o botão manualmente para a esquerda */
+    padding: 20px;
+    
+}
+
+
+.tipo-assistencia-btn {
+    background-color: #f0f0f0; /* Cor de fundo padrão */
+    border: 2px solid #007bff; /* Borda padrão */
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tipo-assistencia-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Quando o botão for selecionado */
+.tipo-assistencia-btn.selecionado {
+    background-color: #007bff; /* Azul quando selecionado */
+    color: white; /* Cor do texto em branco */
+    border-color: #ffd700; /* Borda dourada */
+}
+
+
+
+/* Botão de destaque (Enviar) */
+.destaque {
+    background: linear-gradient(90deg,  #12f853 0%, #ff4e00 100%);
+    color: #fff;
+    font-size: 20px;
+    margin: 30px auto 0; /* Centraliza horizontalmente e cria espaço acima */
+    padding: 20px;
+}
+
+.destaque:hover {
+    background: linear-gradient(90deg,  #00ff44 0%, #ff0000 100%); /* Um laranja mais escuro */
+}
