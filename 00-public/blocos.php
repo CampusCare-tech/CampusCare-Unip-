@@ -58,7 +58,7 @@
     </script>
 </head>
 <body>
-    <form id="formulario" action="processar.php" method="post">
+    <form id="formulario" action="../01-includes/processar.php" method="post">
         <!-- Etapa 1: Escolher Bloco -->
         <div id="etapaBloco">
             <h2>Escolha o Bloco</h2>
