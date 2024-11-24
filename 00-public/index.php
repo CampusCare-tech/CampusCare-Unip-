@@ -44,7 +44,7 @@
 		</header>
 		<a href="#work" class="jumplink pic">
 			<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
-			<img src="/CampusCare-Unipe1/00-public/assets/images/me.jpg"/>
+			<img src="/CampusCare-Unipe/00-public/assets/images/me.jpg"/>
 		</a>
 	</article>
 
