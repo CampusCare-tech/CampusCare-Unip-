@@ -31,23 +31,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $local_identificacao = $_POST['local_identificacao'];
     $descricao = $_POST['descricao'];
 
-    // Prepara a query SQL
+    // Define a consulta SQL (query) para inserir os dados na tabela especificada
     $sql = "INSERT INTO $tabela (bloco, local_tipo, local_identificacao, descricao) 
             VALUES (?, ?, ?, ?)";
 
     try {
+        // Prepara a consulta SQL para execução
         $stmt = $dbConnection->prepare($sql);
+
+        // Associa os parâmetros fornecidos pelo usuário às variáveis na query SQL.
         $stmt->bind_param("ssss", $bloco, $local_tipo, $local_identificacao, $descricao);
 
+        // Executa a query preparada.
         if ($stmt->execute()) {
+            // Se a execução for bem-sucedida, exibe um alerta informando que o chamado foi registrado.
+            // Redireciona o usuário para a página inicial (`index.php`).
             echo "<script>
                     alert('Chamado registrado com sucesso!');
                     window.location.href = 'index.php';
                   </script>";
         } else {
+            // Caso algo dê errado ao executar o comando SQL, lança uma exceção com uma mensagem de erro.
             throw new Exception("Erro ao registrar chamado.");
         }
     } catch (Exception $errorMessage) {
+        // Captura qualquer exceção lançada no bloco `try`.
+        // Exibe uma mensagem de erro ao usuário e permite que ele volte à página anterior.
         echo "<script>
                 alert('Erro ao registrar chamado: " . $errorMessage->getMessage() . "');
                 window.history.back();
