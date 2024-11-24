@@ -40,7 +40,7 @@
 	<article id="home" class="panel intro">
 		<header>
 			<h1>Campus Care Unipê</h1>
-			<p>Seu Site de Queixa</p>
+			<p>Seu Site de Queixas</p>
 		</header>
 		<a href="#work" class="jumplink pic">
 			<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
