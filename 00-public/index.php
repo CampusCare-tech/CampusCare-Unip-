@@ -39,7 +39,7 @@
 <!-- Me -->
 	<article id="home" class="panel intro">
 		<header>
-			<h1>CampusCare Unipe</h1>
+			<h1>CampusCare Unipê</h1>
 			<p>Seu Site de enúncias</p>
 		</header>
 		<a href="#work" class="jumplink pic">
@@ -58,7 +58,7 @@
 								</section>
 							</article>
 
-						<!-- Contato -->
+						<!-- Contact -->
 							<article id="contact" class="panel">
 								<header>
 									<h2>Contate-nos</h2>

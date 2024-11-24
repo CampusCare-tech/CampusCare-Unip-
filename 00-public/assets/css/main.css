@@ -304,7 +304,7 @@ input, select, textarea {
 	form textarea {
 		-webkit-appearance: none;
 		border: 0;
-		background: #3b4bf8;
+		background: #ffffff; /*Cor das messagens*/
 		padding: 0.75em;
 		width: 100%;
 		-moz-transition: background-color .25s ease-in-out;
@@ -318,7 +318,11 @@ input, select, textarea {
 		form input[type="password"]:focus,
 		form select:focus,
 		form textarea:focus {
-			background: #3e70fa; /*Cor de fundo contato*/
+			background: linear-gradient(120deg, #fcfc8e 0%, #fff8d1 100%);
+
+
+
+  /*Cor de fundo contato*/
 		}
 
 	form input[type="text"],
@@ -425,91 +429,26 @@ input, select, textarea {
 		transition: background-color .25s ease-in-out;
 		-webkit-appearance: none;
 		display: inline-block;
-		background-color: #222222;
-		color: #ffffff; /* Cor botão de enviar mensagem*/
+		background-color: #333333;/* Cor botão de enviar mensagem*/
+		color: #ffffff; /* Cor da letra enviar mensagem*/
 		border: 0;
 		cursor: pointer;
 		outline: 0;
 		padding: 0.7em 1.5em 0.7em 1.5em;
 	}
 
-		input[type="button"]:hover,
 		input[type="submit"]:hover,
-		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #333333;
-		}
-
-		input[type="button"]:active,
-		input[type="submit"]:active,
-		input[type="reset"]:active,
-		button:active,
-		.button:active {
-			background-color: #444444;
-		}
-
-		input[type="button"].alt,
-		input[type="submit"].alt,
-		input[type="reset"].alt,
-		button.alt,
-		.button.alt {
-			background-color: #777777;
-		}
-
-			input[type="button"].alt:hover,
-			input[type="submit"].alt:hover,
-			input[type="reset"].alt:hover,
-			button.alt:hover,
-			.button.alt:hover {
-				background-color: #888888;
-			}
-
-			input[type="button"].alt:active,
-			input[type="submit"].alt:active,
-			input[type="reset"].alt:active,
-			button.alt:active,
-			.button.alt:active {
-				background-color: #999999;
-			}
-
-		input[type="button"].small,
-		input[type="submit"].small,
-		input[type="reset"].small,
-		button.small,
-		.button.small {
-			font-size: 0.75em;
-		}
-
-		input[type="button"].large,
-		input[type="submit"].large,
-		input[type="reset"].large,
-		button.large,
-		.button.large {
-			font-size: 1.25em;
-			padding: 0.5em 1.25em 0.5em 1.25em;
-		}
-
-		input[type="button"].xlarge,
-		input[type="submit"].xlarge,
-		input[type="reset"].xlarge,
-		button.xlarge,
-		.button.xlarge {
-			font-size: 1.5em;
-			padding: 0.5em 1.25em 0.5em 1.25em;
-		}
-
-		@media screen and (max-width: 736px) {
-
-			input[type="button"],
-			input[type="submit"],
-			input[type="reset"],
-			button,
-			.button {
-				width: 100%;
-			}
+			background-color: #212120; /*Muda a cor quando selecionado*/
 
 		}
+
+
+
+	
+
+
 
 /* List */
 
@@ -557,6 +496,7 @@ input, select, textarea {
 
 				ul.actions li:first-child {
 					margin-top: 0;
+					
 				}
 
 		}
@@ -609,7 +549,7 @@ input, select, textarea {
 		#nav a {
 			position: relative;
 			display: inline-block;
-			color: #002e84;
+			color: #7b00ff; /*Cor dos icones de cima*/
 			width: 1em;
 			height: 1em;
 			line-height: 0.9em;
@@ -638,7 +578,7 @@ input, select, textarea {
 				left: 50%;
 				bottom: -0.75em;
 				margin-left: -0.5em;
-				border-bottom: solid 0em #37a2ff; /*com da seta*/
+				border-bottom: solid 0em #37a2ff; /*cor da seta*/
 				border-left: solid 0.5em transparent;
 				border-right: solid 0.5em transparent;
 				-moz-transition: border-bottom-width .25s ease-in-out;
@@ -650,8 +590,8 @@ input, select, textarea {
 			#nav a span {
 				display: block;
 				position: absolute;
-				background: #222222;
-				color: #ffffff;
+				background: #222222; /*Cor de fundo do nav bar*/
+				color: #ffffff; /*Cor da letra do nav bar*/
 				top: -2.75em;
 				font-size: 0.3em;
 				height: 2.25em;
@@ -673,7 +613,7 @@ input, select, textarea {
 					bottom: -0.4em;
 					left: 50%;
 					margin-left: -0.6em;
-					border-top: solid 0.6em #222222;
+					border-top: solid 0.6em #222222; /*Cor da seta do nav bar*/
 					border-left: solid 0.6em transparent;
 					border-right: solid 0.6em transparent;
 				}
@@ -779,7 +719,8 @@ input, select, textarea {
 	overflow: hidden;
 	width: 100%;
 	background: linear-gradient(90deg, #2c46ba 0%, #2592f8 50%, #044ce7 100%);
-	box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 1px 0px 0px 
+	rgba(0, 0, 0, 0.25);
 	-moz-transition: min-height 0.5s ease-in-out, max-height 0.5s ease-in-out;
 	-webkit-transition: min-height 0.5s ease-in-out, max-height 0.5s ease-in-out;
 	-ms-transition: min-height 0.5s ease-in-out, max-height 0.5s ease-in-out;
