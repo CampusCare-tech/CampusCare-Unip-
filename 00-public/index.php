@@ -2,7 +2,7 @@
 
 <html lang="pt-br">
 	<head>
-		<title>CampusCare Unipe</title>
+		<title>CampusCare Unipê</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -39,8 +39,8 @@
 <!-- Me -->
 	<article id="home" class="panel intro">
 		<header>
-			<h1>CampusCare Unipê</h1>
-			<p>Seu Site de enúncias</p>
+			<h1>Campus Care Unipê</h1>
+			<p>Seu Site de Queixa</p>
 		</header>
 		<a href="#work" class="jumplink pic">
 			<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
