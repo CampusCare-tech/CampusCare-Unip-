@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             echo "<script>
                     alert('Chamado registrado com sucesso!');
-                    window.location.href = 'index.php';
+                    window.location.href = '../00-public/index.php';;
                   </script>";
         } else {
             echo "<script>
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Caso o método não seja POST
     echo "<script>
             alert('Requisição inválida.');
-            window.location.href = 'index.php';
+            window.location.href = '../00-public/index.php';
           </script>";
 }
 ?>
