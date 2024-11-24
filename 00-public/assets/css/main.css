@@ -153,8 +153,8 @@ input, select, textarea {
 
 	body, input, textarea, select {
 		font-family: 'Source Sans Pro', sans-serif;
-		font-weight: 300;
-		color: #777777;
+		font-weight: 450;
+		color: #000000;
 		font-size: 20pt;
 		line-height: 1.75em;
 	}
@@ -191,9 +191,9 @@ input, select, textarea {
 
 		}
 
-	strong, b, h1, h2, h3, h4, h5, h6 {
+	strong, b, h1, h3, h4, h5, h6 {
 		font-weight: 400;
-		color: #363636;
+		color: #2c2c2c;
 	}
 
 	h1 {
@@ -204,6 +204,9 @@ input, select, textarea {
 	h2 {
 		font-size: 1.8em;
 		letter-spacing: -0.015em;
+		margin-top: -80px; /*Espaço da fonte*/
+		font-weight: 600;
+		color: #2c2c2c;
 	}
 
 	h3, h4, h5, h6 {
@@ -319,7 +322,6 @@ input, select, textarea {
 		form select:focus,
 		form textarea:focus {
 			background: linear-gradient(120deg, #fcfc8e 0%, #fff8d1 100%);
-
 
 
   /*Cor de fundo contato*/

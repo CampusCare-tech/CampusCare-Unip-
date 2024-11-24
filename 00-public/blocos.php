@@ -1,126 +1,113 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escolha de Blocos</title>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Escolha de Blocos</title>
 
-    <script>
-        function mostrarProximaEtapa(etapaAtual, etapaProxima, campoId = null, valor = null) {
-            if (campoId && valor) {
-                document.getElementById(campoId).value = valor; // Define o valor do campo oculto
-            }
-            document.getElementById(etapaAtual).style.display = 'none'; // Esconde a etapa atual
-            document.getElementById(etapaProxima).style.display = 'block'; // Mostra a próxima etapa
-        }
-
-        function voltarEtapa(etapaAtual, etapaAnterior) {
-            document.getElementById(etapaAtual).style.display = 'none'; // Esconde a etapa atual
-            document.getElementById(etapaAnterior).style.display = 'block'; // Mostra a etapa anterior
-        }
-
-        // Função de validação antes de confirmação do envio
-        function validarFormulario() {
-            // Verifica se todos os campos obrigatórios estão preenchidos
-            var bloco = document.getElementById('bloco').value;
-            var lugar = document.getElementById('lugar').value;
-            var descricao = document.getElementById('descricao').value;
-            var tipoAssistencia = document.getElementById('tipo_assistencia').value;
-
-            if (bloco === "" || lugar === "" || descricao === "" || tipoAssistencia === "") {
-                alert("Por favor, preencha todos os campos antes de enviar.");
-                return false; // Impede o envio do formulário
-            }
-
-            // Se todos os campos estiverem preenchidos, solicita confirmação
-            var confirmar = confirm("Você tem certeza que deseja enviar o formulário com as opções selecionadas?");
-            if (confirmar) {
-                // Envia o formulário se o usuário confirmar
-                document.getElementById('formulario').submit();
-            }
-        }
-
-        // Função para aplicar a cor azul e dourado nos botões de tipo de assistência
-        function selecionarTipoAssistencia(tipo) {
-            // Remove a classe 'selecionado' de todos os botões
-            var botoes = document.querySelectorAll('.tipo-assistencia-btn');
-            botoes.forEach(function(btn) {
-                btn.classList.remove('selecionado');
-            });
-
-            // Adiciona a classe 'selecionado' no botão clicado
-            var botaoSelecionado = document.getElementById(tipo);
-            botaoSelecionado.classList.add('selecionado');
-
-            // Define o valor do campo oculto para o tipo de assistência
-            document.getElementById('tipo_assistencia').value = tipo;
-        }
-    </script>
-</head>
-<body>
-    <form id="formulario" action="../01-includes/processar.php" method="post">
-        <!-- Etapa 1: Escolher Bloco -->
-        <div id="etapaBloco">
-            <h2>Escolha o Bloco</h2>
-            <?php
-                $blocos = [
-                    "Bloco A", "Bloco B", "Bloco C", "Bloco D",
-                    "Bloco E", "Bloco F", "Bloco G", "Bloco H",
-                    "Bloco I", "Bloco J", "Bloco K", "Bloco L",
-                    "Bloco M", "Bloco N", "Bloco O", "Bloco P",
-                    "Bloco Q", "Bloco R", "Bloco S", "Bloco CT",
-                    "Auditório", "Reitoria", "Biblioteca", "Ginásio",
-                    "Bloco EVA"
-                ];
-
-                foreach ($blocos as $bloco) {
-                    echo '<button type="button" class="btn-12" onclick="mostrarProximaEtapa(\'etapaBloco\', \'etapaLugar\', \'bloco\', \'' . $bloco . '\')">
-                            <span>' . $bloco . '</span>
-                          </button>';
+        <script>
+            function mostrarProximaEtapa(etapaAtual, etapaProxima, campoId = null, valor = null) {
+                if (campoId && valor) {
+                    document.getElementById(campoId).value = valor;
                 }
-            ?>
-        </div>
+                document.getElementById(etapaAtual).style.display = 'none';
+                document.getElementById(etapaProxima).style.display = 'block';
+            }
 
-        <!-- Etapa Lugar -->
-        <div id="etapaLugar" style="display:none;">
-            <h2>Escolha o Local</h2>
-            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Sala')"><span>Sala</span></button>
-            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Banheiro')"><span>Banheiro</span></button>
-            <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaDetalhes', 'lugar', 'Elevador')"><span>Elevador</span></button>
+            function voltarEtapa(etapaAtual, etapaAnterior) {
+                document.getElementById(etapaAtual).style.display = 'none';
+                document.getElementById(etapaAnterior).style.display = 'block';
+            }
+
+            function validarFormulario() {
+                var bloco = document.getElementById('bloco').value;
+                var localTipo = document.getElementById('local_tipo').value;
+                var localIdentificacao = document.getElementById('local_identificacao').value;
+                var descricao = document.getElementById('descricao').value;
+                var tipoAssistencia = document.getElementById('tipo_assistencia').value;
+
+                if (!bloco || !localTipo || !localIdentificacao || !descricao || !tipoAssistencia) {
+                    alert("Por favor, preencha todos os campos antes de enviar.");
+                    return false;
+                }
+
+                const confirmar = confirm("Você tem certeza que deseja enviar o formulário?");
+                if (confirmar) {
+                    document.getElementById('formulario').submit();
+                }
+            }
+
+            function selecionarTipoAssistencia(tipo) {
+                document.querySelectorAll('.tipo-assistencia-btn').forEach(btn => btn.classList.remove('selecionado'));
+                document.getElementById(tipo).classList.add('selecionado');
+                document.getElementById('tipo_assistencia').value = tipo;
+            }
+        </script>
+    </head>
+    <body>
+        <form id="formulario" action="../01-includes/processar.php" method="post">
+            <div id="etapaBloco">
+                
+                <h2>Escolha o Bloco</h2>
+                <br>
+                <?php
+                    $blocos = [
+                        "Bloco A", "Bloco B", "Bloco C", "Bloco D",
+                        "Bloco E", "Bloco F", "Bloco G", "Bloco H",
+                        "Bloco I", "Bloco J", "Bloco K", "Bloco L",
+                        "Bloco M", "Bloco N", "Bloco O", "Bloco P",
+                        "Bloco Q", "Bloco R", "Bloco S", "Bloco CT",
+                        "Auditório", "Reitoria", "Biblioteca", "Ginásio",
+                        "Bloco EVA"
+                    ];
+
+                    foreach ($blocos as $bloco) {
+                        echo '<button type="button" class="btn-12" onclick="mostrarProximaEtapa(\'etapaBloco\', \'etapaLugar\', \'bloco\', \'' . $bloco . '\')">' . $bloco . '</button>';
+                    }
+                ?>
+            </div>
+
+            <div id="etapaLugar" style="display:none;">
+            <h2 style="color: #2c2c2c; font-size: 40px; text-align: center;">Escolha o Local</h2>
             <br>
-            <!-- Botão Voltar -->
-            <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaLugar', 'etapaBloco')"><span>Voltar</span></button>
-        </div>
+                <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaIdentificacao', 'local_tipo', 'Sala')">Sala</button>
+                <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaIdentificacao', 'local_tipo', 'Banheiro')">Banheiro</button>
+                <button type="button" class="btn-12" onclick="mostrarProximaEtapa('etapaLugar', 'etapaIdentificacao', 'local_tipo', 'Elevador')">Elevador</button>
+                <br>
+                <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaLugar', 'etapaBloco')">Voltar</button>
+            </div>
 
-        <!-- Etapa 3: Detalhes -->
-        <div id="etapaDetalhes" style="display:none;">
-            <h2>Detalhes do Problema</h2>
+            <div id="etapaIdentificacao" style="display:none;">
+            <h2 style="color: #2c2c2c; font-size: 40px; text-align: center;">Identifique o Local</h2>
+                <label style="color: #2c2c2c; font-size: 30px; text-align:" for="local_identificacao">Identificação:</label>
+                <input type="text" id="local_identificacao" name="local_identificacao" required>
+                <button type="button" class="btn-12 destaque" onclick="mostrarProximaEtapa('etapaIdentificacao', 'etapaDetalhes')">Avançar</button>
+                <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaIdentificacao', 'etapaLugar')">Voltar</button>
+            </div>
 
-            <label for="bloco">Bloco:</label>
-            <input type="text" id="bloco" name="bloco" readonly required>
+                <div id="etapaDetalhes" style="display:none;">
+                <h2 style="color: #2c2c2c; font-size: 35px; text-align: center;">Detalhes do Problema</h2>
 
-            <label for="descricao">Descrição:</label>
-            <textarea id="descricao" name="descricao" required></textarea>
+                <br>
+                <label style="color: #2c2c2c; font-size: 35px; for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" required></textarea>
 
-            <!-- Botões de tipo de assistência com alteração de cor -->
-            <button type="button" class="btn-12 tipo-assistencia-btn" id="manutencao" onclick="selecionarTipoAssistencia('manutencao')">Registrar Manutenção</button>
-            <button type="button" class="btn-12 tipo-assistencia-btn" id="limpeza" onclick="selecionarTipoAssistencia('limpeza')">Registrar Limpeza</button>
-            <button type="button" class="btn-12 tipo-assistencia-btn" id="seguranca" onclick="selecionarTipoAssistencia('seguranca')">Registrar Segurança</button>
-            <button type="button" class="btn-12 tipo-assistencia-btn" id="saude" onclick="selecionarTipoAssistencia('saude')">Registrar Saúde</button>
+                <!-- Botões de tipo de assistência -->
+                <button type="button" class="btn-12 tipo-assistencia-btn" id="manutencao" onclick="selecionarTipoAssistencia('manutencao')">Manutenção</button>
+                <button type="button" class="btn-12 tipo-assistencia-btn" id="limpeza" onclick="selecionarTipoAssistencia('limpeza')">Limpeza</button>
+                <button type="button" class="btn-12 tipo-assistencia-btn" id="seguranca" onclick="selecionarTipoAssistencia('seguranca')">Segurança</button>
+                <button type="button" class="btn-12 tipo-assistencia-btn" id="saude" onclick="selecionarTipoAssistencia('saude')">Saúde</button>
 
-            <!-- Campo oculto para o tipo de assistência -->
-            <input type="hidden" id="tipo_assistencia" name="tipo_assistencia">
+                <input type="hidden" id="tipo_assistencia" name="tipo_assistencia">
 
-            <!-- Botão de confirmação para enviar -->
-            <button type="button" class="btn-12 destaque" onclick="validarFormulario()">Confirmar Envio</button>
+                <!-- Div para os botões Voltar e Enviar -->
+                <div class="action-buttons">
+                    <button type="button" class="btn-12 destaque" onclick="validarFormulario()">Enviar</button>
+                    <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaDetalhes', 'etapaIdentificacao')">Voltar</button>
+                </div>
 
-            <!-- Botão Voltar -->
-            <button type="button" class="btn-12 voltar" onclick="voltarEtapa('etapaDetalhes', 'etapaLugar')"><span>Voltar</span></button>
-        </div>
-
-        <!-- Campos ocultos -->
-        <input type="hidden" id="bloco" name="bloco">
-        <input type="hidden" id="lugar" name="lugar">
-    </form>
-</body>
-</html>
+            <input type="hidden" id="bloco" name="bloco">
+            <input type="hidden" id="local_tipo" name="local_tipo">
+        </form>
+    </body>
+    </html>
