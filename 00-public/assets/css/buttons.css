@@ -96,7 +96,7 @@ textarea {
     font-size: 18px;
     font-weight: bold;
     border-radius: 8px;
-    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(90deg, #7b00ff 0%, #2575fc 50%, #7b00ff 100%);
     color: #fff;
     text-transform: uppercase;
     border: none;
@@ -105,15 +105,15 @@ textarea {
 }
 
 .btn-12:hover {
-    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
-    transform: scale(1.05);
+    background: linear-gradient(90deg, #2575fc 0%, #7b00ff 50%, #2575fc 100%);
+    transform: scale(1.17);
 }
 
 /* Destaque para botões de "Voltar" e "Enviar" */
 .btn-12[name="enviar"],
 .btn-12.voltar {
     margin-top: 20px; /* Espaçamento superior */
-    padding: 20px 40px;
+    padding: 20px
     font-size: 20px;
     background: linear-gradient(90deg, #ff4e00 0%, #ec9f05 100%);
 }
@@ -174,9 +174,33 @@ textarea {
     color: #fff;
     font-size: 20px;
     margin: 30px auto 0; /* Centraliza horizontalmente e cria espaço acima */
-    padding: 20px;
+    padding: 25px;
 }
 
 .destaque:hover {
     background: linear-gradient(90deg,  #00ff44 0%, #ff0000 100%); /* Um laranja mais escuro */
+}
+
+
+
+/* Estilo para o placeholder */
+#local_identificacao::placeholder {
+    color: #a8a8a8;
+    font-size: 20px; /* Cor mais clara para o placeholder */
+    
+}
+
+/* Estilo para os títulos (h2) */
+h2 {
+    color: #2c2c2c;
+    font-size: 35px;
+    text-align: center;
+}
+
+/* Estilo para os labels */
+label {
+    color: #2c2c2c;
+    font-size: 35px;
+    display: block;
+    margin-bottom: 10px;
 }

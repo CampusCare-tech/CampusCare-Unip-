@@ -60,33 +60,35 @@
 								</section>
 							</article>
 
-						<!-- Contact -->
-							<article id="contact" class="panel">
-								<header>
-									<h2>Contate-nos</h2>
-								</header>
-								<form action="#" method="post">
-									<div>
-										<div class="row">
-											<div class="col-6 col-12-medium">
-												<input type="text" name="name" placeholder="Name" />
-											</div>
-											<div class="col-6 col-12-medium">
-												<input type="text" name="email" placeholder="Email" />
-											</div>
-											<div class="col-12">
-												<input type="text" name="subject" placeholder="Subject" />
-											</div>
-											<div class="col-12">
-												<textarea name="message" placeholder="Message" rows="6"></textarea>
-											</div>
-											<div class="col-12">
-												<input type="submit" value="Send Message" />
-											</div>
-										</div>
+					<!-- Contact -->
+					<article id="contact" class="panel">
+						<header>
+							<br>
+							<h2>Contate-nos</h2>
+						</header>
+						<form action="contate_nos.php" method="post">
+							<div>
+								<div class="row">
+									<div class="col-6 col-12-medium">
+										<input type="text" name="name" placeholder="Nome" required />
 									</div>
-								</form>
-							</article>
+									<div class="col-6 col-12-medium">
+										<input type="email" name="email" placeholder="Email" required />
+									</div>
+									<div class="col-12">
+										<input type="text" name="subject" placeholder="Assunto" required />
+									</div>
+									<div class="col-12">
+										<textarea name="message" placeholder="Mensagem" rows="6" required></textarea>
+									</div>
+									<div class="col-12">
+										<input type="submit" value="Enviar" />
+									</div>
+								</div>
+							</div>
+						</form>
+					</article>
+
 
 					</div>
 
