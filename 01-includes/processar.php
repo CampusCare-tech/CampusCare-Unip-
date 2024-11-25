@@ -2,12 +2,27 @@
 require_once '../01-includes/db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Conexão com o banco de dados
     $dbConnection = conectar();
 
-    // Recebe o tipo de assistência do POST
+    // Verifica se os campos obrigatórios foram enviados
+    if (!isset($_POST['tipo_assistencia'], $_POST['bloco'], $_POST['local_tipo'], $_POST['local_identificacao'], $_POST['descricao'])) {
+        echo "<script>
+                alert('Por favor, preencha todos os campos.');
+                window.history.back();
+              </script>";
+        exit;
+    }
+
+    // Recebe os dados enviados pelo formulário
     $tipo_assistencia = $_POST['tipo_assistencia'];
+    $bloco = $_POST['bloco'];
+    $local_tipo = $_POST['local_tipo'];
+    $local_identificacao = $_POST['local_identificacao'];
+    $descricao = $_POST['descricao'];
 
     // Define a tabela com base no tipo de assistência
+    $tabela = '';
     switch ($tipo_assistencia) {
         case 'manutencao':
             $tabela = 'chamados_manutencao';
@@ -22,50 +37,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tabela = 'chamados_saude';
             break;
         default:
-            die('Tipo de assistência inválido.');
+            echo "<script>
+                    alert('Tipo de assistência inválido.');
+                    window.history.back();
+                  </script>";
+            exit;
     }
 
-    // Recebe os outros dados do formulário (POST)
-    $bloco = $_POST['bloco'];
-    $local_tipo = $_POST['local_tipo'];
-    $local_identificacao = $_POST['local_identificacao'];
-    $descricao = $_POST['descricao'];
+    // Query para inserir os dados na tabela
+    $sql = "INSERT INTO $tabela (bloco, local_tipo, local_identificacao, descricao) VALUES (?, ?, ?, ?)";
 
-    // Define a consulta SQL (query) para inserir os dados na tabela especificada
-    $sql = "INSERT INTO $tabela (bloco, local_tipo, local_identificacao, descricao) 
-            VALUES (?, ?, ?, ?)";
-
-    try {
-        // Prepara a consulta SQL para execução
-        $stmt = $dbConnection->prepare($sql);
-
-        // Associa os parâmetros fornecidos pelo usuário às variáveis na query SQL.
+    // Prepara a execução da query
+    $stmt = $dbConnection->prepare($sql);
+    if ($stmt) {
         $stmt->bind_param("ssss", $bloco, $local_tipo, $local_identificacao, $descricao);
 
-        // Executa a query preparada.
         if ($stmt->execute()) {
-            // Se a execução for bem-sucedida, exibe um alerta informando que o chamado foi registrado.
-            // Redireciona o usuário para a página inicial (`index.php`).
             echo "<script>
                     alert('Chamado registrado com sucesso!');
-                    window.location.href = 'index.php';
+                    window.location.href = '../00-public/index.php';;
                   </script>";
         } else {
-            // Caso algo dê errado ao executar o comando SQL, lança uma exceção com uma mensagem de erro.
-            throw new Exception("Erro ao registrar chamado.");
+            echo "<script>
+                    alert('Erro ao registrar o chamado.');
+                    window.history.back();
+                  </script>";
         }
-    } catch (Exception $errorMessage) {
-        // Captura qualquer exceção lançada no bloco `try`.
-        // Exibe uma mensagem de erro ao usuário e permite que ele volte à página anterior.
+
+        // Fecha a declaração
+        $stmt->close();
+    } else {
         echo "<script>
-                alert('Erro ao registrar chamado: " . $errorMessage->getMessage() . "');
+                alert('Erro ao preparar a consulta.');
                 window.history.back();
               </script>";
     }
 
-    // Fecha o statement e a conexão
-    $stmt->close();
+    // Fecha a conexão com o banco de dados
     $dbConnection->close();
+} else {
+    // Caso o método não seja POST
+    echo "<script>
+            alert('Requisição inválida.');
+            window.location.href = '../00-public/index.php';
+          </script>";
 }
 ?>
-
