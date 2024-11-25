@@ -87,8 +87,9 @@
                 foreach ($blocos as $bloco) {
                     echo '<button type="button" class="btn-12" onclick="mostrarProximaEtapa(\'etapaBloco\', \'etapaLugar\', \'bloco\', \'' . $bloco . '\')">' . $bloco . '</button>';
                 }
-            ?>
-        </div>
+                document.getElementById(etapaAtual).style.display = 'none';
+                document.getElementById(etapaProxima).style.display = 'block';
+            }
 
         <!-- Etapa de escolha do local -->
         <div id="etapaLugar" style="display:none;">
