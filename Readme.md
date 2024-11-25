@@ -1,4 +1,3 @@
-### ReadMe para o projeto CampusCare-Unipê
 
 # **CampusCare-Unipê**  
 **Otimizando a manutenção e segurança do campus com a ajuda dos alunos.**
