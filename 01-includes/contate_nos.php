@@ -52,3 +52,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             window.location.href = '../00-public/index.php';
           </script>";
 }
+?>

@@ -106,3 +106,4 @@
 			<script src="assets/js/util.js"></script> <!-- Utilitários adicionais para o site -->
 			<script src="assets/js/main.js"></script> <!-- Script principal do site -->
 	</body>
+</html>
