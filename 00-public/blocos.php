@@ -114,7 +114,7 @@
             <!-- Campo para descrição -->
             <label for="descricao">Descrição:</label>
             <textarea id="descricao" name="descricao" required placeholder="Descreva o detalhe do problema
-                                                                     Ex: Sala  suja"></textarea>
+                                                                     Ex: Sala 1 suja"></textarea>
             <br>
             <!-- Botões para tipo de assistência -->
             <button type="button" class="btn-12 tipo-assistencia-btn" id="manutencao" onclick="selecionarTipoAssistencia('manutencao')">Manutenção</button>
