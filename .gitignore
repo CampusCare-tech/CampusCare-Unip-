@@ -1,37 +1,49 @@
-# Logs e arquivos temporários
-*.log
-*.tmp
-
-# Dependências do PHP (Composer)
-vendor/
-
-# Dependências do Node.js (se aplicável)
-node_modules/
-
-# Diretórios de build
-dist/
-build/
-
-# Configurações específicas de IDE
-.vscode/
-.idea/
-
-# Sistema operacional
+# Ignorar arquivos e pastas gerados pelo sistema operacional
 .DS_Store
 Thumbs.db
 
-# Arquivos sensíveis
-*.env
-**/config.php
+# Ignorar pastas do XAMPP e configurações locais
+xamppfiles/
+*.log
 
-# Caches
-.cache/
-.sass-cache/
+# Ignorar arquivos de configuração sensíveis
+config.php
+db_connection.php
 
-# Outros
-*.bak
-*.swp
-
-# Banco de dados (se houver dumps locais)
+# Ignorar arquivos de banco de dados locais e backups
 *.sql
-/database/backups/
+*.sqlite
+*.bak
+
+# Ignorar arquivos de cache e temporários
+cache/
+temp/
+*.tmp
+
+# Ignorar bibliotecas externas que podem ser reinstaladas
+node_modules/
+vendor/
+
+# Ignorar arquivos de compilação (se aplicável)
+dist/
+build/
+
+# Ignorar arquivos de IDEs e editores
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignorar arquivos de controle de versão locais
+*.swp
+*.swo
+*.orig
+
+# Ignorar conteúdo gerado pelo navegador
+*.css.map
+*.js.map
+
+# Ignorar imagens ou arquivos temporários não necessários no repositório
+assets/images/temp/
+
+# Ignorar arquivos de configuração do sistema operacional
+Desktop.ini
