@@ -65,7 +65,7 @@
 								<br>
 								<h2>Contate-nos</h2> <!-- Título da seção de contato -->
 							</header>
-							<form action="contate_nos.php" method="post"> <!-- Formulário de contato -->
+							<form action="../01-includes/contate_nos.php" method="post"> <!-- Formulário de contato -->
 								<div>
 									<div class="row">
 										<div class="col-6 col-12-medium">
