@@ -1,5 +1,10 @@
 
 # **CampusCare-Unipê**  
+
+![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-orange)
+[![Idioma: PT-BR](https://img.shields.io/badge/Linguagem-Português-green)](README.md)
+[![Language: EN](https://img.shields.io/badge/Language-English-red)](README.en.md)
+
 **Otimizando a manutenção e segurança do campus com a ajuda dos alunos.**
 
 ---
