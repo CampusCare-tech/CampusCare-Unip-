@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../00-public/includes/db_connection.php';
+require_once '../01-includes/db_connection.php';
 
 // Inicializa a variável de erro para exibir mensagens caso necessário
 $error = '';
