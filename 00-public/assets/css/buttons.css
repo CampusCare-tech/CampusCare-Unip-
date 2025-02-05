@@ -80,8 +80,6 @@ textarea {
 
 
 
-
-
 /* Organização geral dos botões */
 #etapaBloco, #etapaDetalhes {
     text-align: center; /* Centraliza os botões horizontalmente */
@@ -133,7 +131,7 @@ textarea {
 
 
 
-/* Centralização e ajuste manual do botão Voltar */
+/* Centralização e ajuste do botão Voltar */
 #etapaLugar .btn-12.voltar {
     display: block; /* Força o botão para uma nova linha */
     margin: 30px auto 0; /* Centraliza horizontalmente e cria espaço acima */
@@ -174,7 +172,7 @@ textarea {
     color: #fff;
     font-size: 20px;
     margin: 30px auto 0; /* Centraliza horizontalmente e cria espaço acima */
-    padding: 25px;
+    padding: 22px;
 }
 
 .destaque:hover {
@@ -203,4 +201,9 @@ label {
     font-size: 35px;
     display: block;
     margin-bottom: 10px;
+}
+
+/* Estilo específico para o botão Saúde */
+#saude {
+    margin-left: 20px; /* Move o botão 20px para a direita (ajuste conforme necessário) */
 }
