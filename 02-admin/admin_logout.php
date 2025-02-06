@@ -1,4 +1,5 @@
 <?php
+// Verificação condicional para inicio de sessão
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
