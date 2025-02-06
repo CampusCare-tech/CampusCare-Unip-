@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once '../01-includes/db_connection.php';
 
 // Inicializa a variável de erro para exibir mensagens caso necessário

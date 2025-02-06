@@ -1,9 +1,11 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Verifica se o usuário já está logado
+// Se o usuário já estiver logado, redireciona para a página inicial do painel
 if (isset($_SESSION['admin_username'])) {
-    header('Location: servicos_template.php');
+    header('Location: admin_home.php');
     exit();
 }
 
@@ -24,7 +26,6 @@ if (isset($_GET['error'])) {
         * {
             box-sizing: border-box;
         }
-
         body {
             background: #c1bdba;
             font-family: 'Titillium Web', sans-serif;
@@ -35,7 +36,6 @@ if (isset($_GET['error'])) {
             align-items: center;
             height: 100vh;
         }
-
         .form {
             background: rgba(19, 35, 47, 0.9);
             padding: 40px;
@@ -45,18 +45,15 @@ if (isset($_GET['error'])) {
             border-radius: 4px;
             box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
         }
-
         .tab-group {
             list-style: none;
             padding: 0;
             margin: 0 0 40px 0;
             display: flex;
         }
-
         .tab-group li {
             flex: 1;
         }
-
         .tab-group li a {
             display: block;
             text-decoration: none;
@@ -68,32 +65,26 @@ if (isset($_GET['error'])) {
             cursor: pointer;
             transition: all 0.5s ease;
         }
-
         .tab-group li a:hover {
             background: #179b77;
             color: #ffffff;
         }
-
         .tab-group .active a {
             background: #1ab188;
             color: #ffffff;
         }
-
         .tab-content > div {
             display: none;
         }
-
         .tab-content > div:first-child {
             display: block;
         }
-
         h1 {
             text-align: center;
             color: #ffffff;
             font-weight: 300;
             margin: 0 0 40px;
         }
-
         label {
             position: absolute;
             transform: translateY(6px);
@@ -103,17 +94,14 @@ if (isset($_GET['error'])) {
             font-size: 22px;
             pointer-events: none;
         }
-
         label.active {
             transform: translateY(50px);
             left: 2px;
             font-size: 14px;
         }
-
         label.highlight {
             color: #ffffff;
         }
-
         input, textarea {
             font-size: 22px;
             display: block;
@@ -125,33 +113,27 @@ if (isset($_GET['error'])) {
             border-radius: 0;
             transition: border-color 0.25s ease, box-shadow 0.25s ease;
         }
-
         input:focus, textarea:focus {
             outline: 0;
             border-color: #1ab188;
         }
-
         .field-wrap {
             position: relative;
             margin-bottom: 40px;
         }
-
         .top-row:after {
             content: "";
             display: table;
             clear: both;
         }
-
         .top-row > div {
             float: left;
             width: 48%;
             margin-right: 4%;
         }
-
         .top-row > div:last-child {
             margin-right: 0;
         }
-
         .button {
             border: 0;
             outline: none;
@@ -167,26 +149,21 @@ if (isset($_GET['error'])) {
             cursor: pointer;
             width: 100%;
         }
-
         .button:hover {
             background: #179b77;
         }
-
         .forgot {
             margin-top: -20px;
             text-align: right;
         }
-
         .forgot a {
             color: #a0b3b0;
             text-decoration: none;
             transition: color 0.5s ease;
         }
-
         .forgot a:hover {
             color: #179b77;
         }
-
         .error {
             color: #ff6b6b;
             text-align: center;
@@ -210,7 +187,7 @@ if (isset($_GET['error'])) {
                 <?php if ($error): ?>
                     <p class="error"><?php echo $error; ?></p>
                 <?php endif; ?>
-                <form action="admin_home_template.php">
+                <form action="admin_login.php" method="post">
                     <div class="field-wrap">
                         <label>Nome de usuário<span class="req">*</span></label>
                         <input type="text" name="username" required autocomplete="off" />
@@ -227,7 +204,7 @@ if (isset($_GET['error'])) {
             <!-- Cadastro -->
             <div id="signup">
                 <h1>Cadastre-se gratuitamente</h1>
-                <form action="admin_signup.php" method="post">
+                <form action="admin_register.php" method="post">
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>Nome<span class="req">*</span></label>
@@ -245,6 +222,10 @@ if (isset($_GET['error'])) {
                     <div class="field-wrap">
                         <label>Senha<span class="req">*</span></label>
                         <input type="password" name="password" required autocomplete="off" />
+                    </div>
+                    <div class="field-wrap">
+                        <label>Confirmar Senha<span class="req">*</span></label>
+                        <input type="password" name="confirm_password" required autocomplete="off" />
                     </div>
                     <button type="submit" class="button">Cadastrar</button>
                 </form>
@@ -300,4 +281,3 @@ if (isset($_GET['error'])) {
     </script>
 </body>
 </html>
-

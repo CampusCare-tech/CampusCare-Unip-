@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once '../01-includes/db_connection.php'; // Inclui o arquivo de conexão com o banco de dados
 
 // Verifica se o formulário foi submetido via POST

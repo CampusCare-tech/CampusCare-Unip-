@@ -1,5 +1,7 @@
 <?php
-session_start(); // Inicia ou retoma a sessão existente
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Limpa todas as variáveis de sessão
 $_SESSION = array();
