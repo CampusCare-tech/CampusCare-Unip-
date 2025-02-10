@@ -88,7 +88,7 @@ if (isset($_GET['error'])) {
         }
         label {
             position: absolute;
-            transform: translateY(6px);
+            transform: translateY(11px);
             left: 13px;
             color: rgba(255, 255, 255, 0.5);
             transition: all 0.25s ease;
@@ -197,7 +197,7 @@ if (isset($_GET['error'])) {
                         <label>Senha<span class="req">*</span></label>
                         <input type="password" name="password" required autocomplete="off" />
                     </div>
-                    <p class="forgot"><a href="#">Esqueceu a senha?</a></p>
+                    <!--<p class="forgot"><a href="#">Esqueceu a senha?</a></p>-->
                     <button type="submit" class="button">Entrar</button>
                 </form>
             </div>

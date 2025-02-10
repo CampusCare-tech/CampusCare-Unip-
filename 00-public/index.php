@@ -93,7 +93,7 @@
 				<!-- Footer: Rodapé da página -->
 					<div id="footer">
 						<ul class="copyright">
-							<li>&copy; CampusCare.</li> <!-- Informações de copyright -->
+							<li>&copy; CampusCare</li> <!-- Informações de copyright -->
 						</ul>
 					</div>
 

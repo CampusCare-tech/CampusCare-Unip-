@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 // Verificação condicional para inicio de sessão
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -36,7 +33,7 @@ if (!array_key_exists($service, $validServices)) {
 $tableName = $validServices[$service];
 
 // Inclui a conexão com o banco de dados
-include '../01-includes/db_connection.php';
+include_once '../01-includes/db_connection.php';
 $dbConnection = conectar();
 
 // Consulta os registros da tabela selecionada, ordenando os mais recentes primeiro
@@ -55,5 +52,6 @@ while ($row = $result->fetch_assoc()) {
 // Fecha a conexão com o banco
 $dbConnection->close();
 
+// Inclui o template para exibir os chamados
 include 'templates/admin_service_template.php';
 ?>
