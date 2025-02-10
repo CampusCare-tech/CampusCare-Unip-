@@ -125,7 +125,7 @@ $dbConnection->close();
             background-color: #ddd;
         }
         .concluido {
-            background-color:rgb(92, 243, 128) !important; /* Verde claro */
+            background-color: rgb(92, 243, 128) !important; /* Verde claro */
             transition: background-color 0.5s ease;
         }
         .action-buttons {
@@ -211,7 +211,7 @@ $dbConnection->close();
 </head>
 <body>
     <div class="navbar">
-        <h1>Administrativa - CampusCare</h1>
+        <h1>Área Administrativa - CampusCare</h1>
         <button class="logout-button" onclick="window.location.href='admin_logout.php'">
             <i class="fas fa-power-off"></i>
         </button>
@@ -238,7 +238,19 @@ $dbConnection->close();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($records as $record): ?>
+                    <?php
+                    // Recupera os IDs dos chamados excluídos do localStorage
+                    echo "<script>
+                        const chamadosExcluidos = JSON.parse(localStorage.getItem('chamadosExcluidos')) || [];
+                    </script>";
+
+                    foreach ($records as $record):
+                        echo "<script>
+                            if (chamadosExcluidos.includes({$record['id']})) {
+                                document.write('');
+                            } else {
+                        </script>";
+                    ?>
                         <tr id="chamado-<?php echo $record['id']; ?>" class="<?php echo ($record['status'] === 'Concluído') ? 'concluido' : ''; ?>">
                             <td><?php echo htmlspecialchars($record['id']); ?></td>
                             <td><?php echo htmlspecialchars($record['bloco']); ?></td>
@@ -257,7 +269,10 @@ $dbConnection->close();
                                 </div>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php
+                        echo "<script>}</script>";
+                    endforeach;
+                    ?>
                 </tbody>
             </table>
         <?php else: ?>
@@ -281,10 +296,28 @@ $dbConnection->close();
                 const chamado = document.getElementById(`chamado-${id}`);
                 chamado.classList.add('fade-out');
                 setTimeout(() => {
+                    // Remove o chamado
                     chamado.remove();
+                    // Armazena o ID do chamado excluído no localStorage
+                    const chamadosExcluidos = JSON.parse(localStorage.getItem('chamadosExcluidos')) || [];
+                    if (!chamadosExcluidos.includes(id)) {
+                        chamadosExcluidos.push(id);
+                        localStorage.setItem('chamadosExcluidos', JSON.stringify(chamadosExcluidos));
+                    }
                 }, 500); // Tempo da animação
             }
         }
+
+        // Filtra os chamados excluídos ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const chamadosExcluidos = JSON.parse(localStorage.getItem('chamadosExcluidos')) || [];
+            chamadosExcluidos.forEach(id => {
+                const chamado = document.getElementById(`chamado-${id}`);
+                if (chamado) {
+                    chamado.remove();
+                }
+            });
+        });
     </script>
 </body>
 </html>
