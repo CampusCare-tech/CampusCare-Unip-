@@ -33,7 +33,7 @@ if (!array_key_exists($service, $validServices)) {
 $tableName = $validServices[$service];
 
 // Inclui a conexão com o banco de dados
-include '../01-includes/db_connection.php';
+include_once '../01-includes/db_connection.php';
 $dbConnection = conectar();
 
 // Consulta os registros da tabela selecionada, ordenando os mais recentes primeiro
@@ -71,20 +71,20 @@ $dbConnection->close();
             color: white;
             padding: 20px 20px;
             display: flex;
-            justify-content: flex-end; /* Alinha o botão de logout à direita */
+            justify-content: flex-end;
             align-items: center;
-            position: relative; /* Permite posicionamento absoluto dentro do navbar */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra no navbar */
-            margin-bottom: 40px; /* Espaço maior abaixo do título */
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
         }
         .navbar h1 {
             margin: 0;
             font-size: 24px;
-            position: absolute; /* Posiciona o título */
-            left: 50%; /* Move o título para o centro */
-            transform: translateX(-50%); /* Ajusta o posicionamento exato */
-            font-weight: bold; /* Deixa o texto em negrito */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra no texto */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         .logout-button {
             background: none;
@@ -95,16 +95,16 @@ $dbConnection->close();
             transition: transform 0.3s ease;
         }
         .logout-button:hover {
-            transform: scale(1.1); /* Efeito ao passar o mouse */
+            transform: scale(1.1);
         }
         .container {
             padding: 20px;
-            text-align: center; /* Centraliza todo o conteúdo dentro do container */
+            text-align: center;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 40px; /* Espaço maior abaixo da tabela */
+            margin-bottom: 40px;
         }
         table, th, td {
             border: 1px solid #ddd;
@@ -124,6 +124,10 @@ $dbConnection->close();
         tr:hover {
             background-color: #ddd;
         }
+        .concluido {
+            background-color:rgb(92, 243, 128) !important; /* Verde claro */
+            transition: background-color 0.5s ease;
+        }
         .action-buttons {
             display: flex;
             gap: 10px;
@@ -135,10 +139,7 @@ $dbConnection->close();
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-        }
-        .action-buttons button.edit {
-            background-color: #ffc107;
-            color: white;
+            position: relative;
         }
         .action-buttons button.complete {
             background-color: #28a745;
@@ -151,6 +152,25 @@ $dbConnection->close();
         .action-buttons button:hover {
             opacity: 0.8;
         }
+        .action-buttons button::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .action-buttons button:hover::after {
+            opacity: 1;
+        }
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
@@ -161,18 +181,47 @@ $dbConnection->close();
         .back-link:hover {
             text-decoration: underline;
         }
+        .fade-out {
+            animation: fadeOut 0.5s ease forwards;
+        }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+        }
+        .highlight-concluido {
+            animation: highlightConcluido 1.5s ease;
+        }
+        @keyframes highlightConcluido {
+            0% {
+                background-color: #f2f2f2;
+            }
+            50% {
+                background-color: #d4edda;
+            }
+            100% {
+                background-color: #d4edda;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <h1>Administrativa - CampusCare</h1> <!-- Título centralizado -->
+        <h1>Administrativa - CampusCare</h1>
         <button class="logout-button" onclick="window.location.href='admin_logout.php'">
-            <i class="fas fa-power-off"></i> <!-- Ícone de power do FontAwesome -->
+            <i class="fas fa-power-off"></i>
         </button>
     </div>
 
     <div class="container">
-        <a class="back-link" href="admin_home.php">&larr; Voltar para Home</a>
+        <a class="back-link" href="admin_home.php">
+            <i class="fa-solid fa-house"></i>
+            <i class="fas fa-arrow-left"></i> Voltar para Home
+        </a>
         <h1>Chamados de <?php echo ucfirst($service); ?></h1>
 
         <?php if (count($records) > 0): ?>
@@ -190,7 +239,7 @@ $dbConnection->close();
                 </thead>
                 <tbody>
                     <?php foreach ($records as $record): ?>
-                        <tr>
+                        <tr id="chamado-<?php echo $record['id']; ?>" class="<?php echo ($record['status'] === 'Concluído') ? 'concluido' : ''; ?>">
                             <td><?php echo htmlspecialchars($record['id']); ?></td>
                             <td><?php echo htmlspecialchars($record['bloco']); ?></td>
                             <td><?php echo htmlspecialchars($record['local_tipo']); ?></td>
@@ -199,14 +248,11 @@ $dbConnection->close();
                             <td><?php echo htmlspecialchars($record['data_criacao']); ?></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="edit" onclick="editarChamado(<?php echo $record['id']; ?>)">
-                                        <i class="fas fa-pencil-alt"></i> <!-- Ícone de edição -->
+                                    <button class="complete" data-tooltip="Marcar como Concluído" onclick="concluirChamado(<?php echo $record['id']; ?>)">
+                                        <i class="fas fa-check"></i>
                                     </button>
-                                    <button class="complete" onclick="concluirChamado(<?php echo $record['id']; ?>)">
-                                        <i class="fas fa-check"></i> <!-- Ícone de concluído -->
-                                    </button>
-                                    <button class="delete" onclick="excluirChamado(<?php echo $record['id']; ?>)">
-                                        <i class="fas fa-trash"></i> <!-- Ícone de lixeira -->
+                                    <button class="delete" data-tooltip="Excluir" onclick="excluirChamado(<?php echo $record['id']; ?>)">
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
@@ -220,20 +266,23 @@ $dbConnection->close();
     </div>
 
     <script>
-        function editarChamado(id) {
-            alert("Editar chamado " + id);
-            // Aqui você pode redirecionar para uma página de edição ou abrir um modal
-        }
-
         function concluirChamado(id) {
             if (confirm("Deseja marcar este chamado como concluído?")) {
-                window.location.href = `admin_concluir_chamado.php?id=${id}&service=<?php echo $service; ?>`;
+                const chamado = document.getElementById(`chamado-${id}`);
+                chamado.classList.add('concluido', 'highlight-concluido');
+                setTimeout(() => {
+                    window.location.href = `admin_concluir_chamado.php?id=${id}&service=<?php echo $service; ?>`;
+                }, 1500); // Tempo da animação
             }
         }
 
         function excluirChamado(id) {
-            if (confirm("Deseja excluir este chamado?")) {
-                window.location.href = `admin_excluir_chamado.php?id=${id}&service=<?php echo $service; ?>`;
+            if (confirm("Deseja remover este chamado?")) {
+                const chamado = document.getElementById(`chamado-${id}`);
+                chamado.classList.add('fade-out');
+                setTimeout(() => {
+                    chamado.remove();
+                }, 500); // Tempo da animação
             }
         }
     </script>
