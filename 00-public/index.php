@@ -31,8 +31,7 @@
 				<!-- Nav: Barra de navegação -->
 					<nav id="nav">
 						<a href="#" class="icon solid fa-home"><span>Home</span></a> <!-- Link para a página inicial -->
-						<a href="#work" class="icon solid fa-folder"><span>Denúncias</span></a> <!-- Link para a seção de denúncias -->
-						<a href="#contact" class="icon solid fa-envelope"><span>Contato</span></a> <!-- Link para a seção de contato -->
+						<a href="#work" class="icon solid fa-folder"><span>Chamados</span></a> <!-- Link para a seção de denúncias -->
 					</nav>
 
 				<!-- Main: Área principal da página -->
@@ -42,7 +41,7 @@
 						<article id="home" class="panel intro">
 							<header>
 								<h1>Campus Care Unipê</h1> <!-- Título principal da página -->
-								<h2>Central de Suporte</h2> <!-- Descrição do site -->
+								<p>Central de Suporte</p> <!-- Descrição do site -->
 							</header>
 							<a href="#work" class="jumplink pic"> <!-- Link para a seção de denúncias -->
 								<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
@@ -50,7 +49,7 @@
 							</a>
 						</article>
 
-					<!-- Denúncias: Seção para denunciar problemas -->
+					<!-- Chamados: Seção para reportar problemas -->
 						<article id="work" class="panel">
 							<form action="processar.php" method="post"> <!-- Formulário para processar as denúncias -->
 							</form>
@@ -59,43 +58,17 @@
 							</section>
 						</article>
 
-					<!-- Contact: Seção de contato -->
-						<article id="contact" class="panel">
-							<header>
-								<br>
-								<h2>Contate-nos</h2> <!-- Título da seção de contato -->
-							</header>
-							<form action="../01-includes/contate_nos.php" method="post"> <!-- Formulário de contato -->
-								<div>
-									<div class="row">
-										<div class="col-6 col-12-medium">
-											<input type="text" name="name" placeholder="Nome" required /> <!-- Campo para nome -->
-										</div>
-										<div class="col-6 col-12-medium">
-											<input type="email" name="email" placeholder="Email" required /> <!-- Campo para email -->
-										</div>
-										<div class="col-12">
-											<input type="text" name="subject" placeholder="Assunto" required /> <!-- Campo para assunto -->
-										</div>
-										<div class="col-12">
-											<textarea name="message" placeholder="Mensagem" rows="6" required></textarea> <!-- Campo para mensagem -->
-										</div>
-										<div class="col-12">
-											<input type="submit" value="Enviar" /> <!-- Botão para enviar o formulário -->
-										</div>
-									</div>
-								</div>
-							</form>
-						</article>
-
 				</div>
 
 				<!-- Footer: Rodapé da página -->
-					<div id="footer">
-						<ul class="copyright">
-							<li>&copy; CampusCare</li> <!-- Informações de copyright -->
-						</ul>
+				<div id="footer">
+					<ul class="copyright">
+						<li>&copy; CampusCare</li> <!-- Informações de copyright -->
+					</ul>
+					<div class="footer-email">
+						<a href="https://mail.google.com/mail/?view=cm&fs=1&to=campuscare.tech@gmail.com" target="_blank">campuscare.tech@gmail.com</a>
 					</div>
+				</div>
 
 			</div>
 

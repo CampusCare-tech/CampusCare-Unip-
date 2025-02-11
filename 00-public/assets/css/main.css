@@ -725,7 +725,7 @@ ul.actions li:first-child {
   left: 50%;
   bottom: -0.75em;
   margin-left: -0.5em;
-  border-bottom: solid 0em rgba(255, 255, 255, 0.65); /*cor da seta*/
+  border-bottom: solid 0em rgb(38, 146, 247); /*cor da seta*/
   border-left: solid 0.5em transparent;
   border-right: solid 0.5em transparent;
   -moz-transition: border-bottom-width 0.25s ease-in-out;
@@ -1090,6 +1090,33 @@ body.is-preload #wrapper {
 
 @media screen and (max-width: 736px) {
   #footer .copyright li {
+    padding-left: 0.5em;
+    margin-left: 0.5em;
+  }
+}
+
+#footer .footer-email {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#footer .footer-email a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  padding-left: 1em;
+  margin-left: 1em;
+  border-left: solid 1px rgba(255, 255, 255, 0.25);
+  line-height: 1;
+}
+
+#footer .footer-email a:first-child {
+  padding-left: 0;
+  margin-left: 0;
+  border-left: 0;
+}
+
+@media screen and (max-width: 736px) {
+  #footer .footer-email a {
     padding-left: 0.5em;
     margin-left: 0.5em;
   }
