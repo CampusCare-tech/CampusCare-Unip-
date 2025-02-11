@@ -42,7 +42,7 @@
 						<article id="home" class="panel intro">
 							<header>
 								<h1>Campus Care Unipê</h1> <!-- Título principal da página -->
-								<p>Seu Site de Queixas</p> <!-- Descrição do site -->
+								<p>Central de Suporte</p> <!-- Descrição do site -->
 							</header>
 							<a href="#work" class="jumplink pic"> <!-- Link para a seção de denúncias -->
 								<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
@@ -93,7 +93,7 @@
 				<!-- Footer: Rodapé da página -->
 					<div id="footer">
 						<ul class="copyright">
-							<li>&copy; CampusCare.</li> <!-- Informações de copyright -->
+							<li>&copy; CampusCare</li> <!-- Informações de copyright -->
 						</ul>
 					</div>
 
