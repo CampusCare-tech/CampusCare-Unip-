@@ -1,10 +1,10 @@
-# **CampusCare-Unipê**
+# CampusCare-Unipê
 
-![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-orange)
+[![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-orange)](README.md)
 [![Idioma: PT-BR](https://img.shields.io/badge/Linguagem-Português-green)](README.md)
 [![Language: EN](https://img.shields.io/badge/Language-English-red)](README.en.md)
 
-**Otimizando a manutenção e segurança do campus com a ajuda dos alunos.**
+**Otimizando a manutenção e segurança do campus com a colaboração dos alunos e equipes administrativas.**
 
 ---
 
@@ -43,34 +43,34 @@ Os alunos podem relatar problemas ou necessidades em blocos específicos da inst
 6. **Envio automático para a área responsável**:
    - Dados são enviados para a tabela correspondente no banco de dados e estarão disponíveis para a equipe de administração da área.
 
+
+### Área Administrativa
+
+- **Dashboard de Estatísticas:**  
+  A página inicial da área administrativa exibe cartões com estatísticas dos chamados:  
+  - Chamados Abertos  
+  - Chamados Concluídos  
+  - Taxa de Resolução  
+  Esses cartões são interativos, permitindo que o administrador selecione qual conjunto de chamados deseja visualizar.
+
+- **Filtragem de Chamados:**  
+  Ao clicar em um dos cartões (ex.: Chamados Abertos ou Concluídos), o sistema atualiza os links dos botões de serviço (manutenção, limpeza, saúde ou segurança) para mostrar a lista correspondente, sem alterar o banco de dados.
+
 ---
 
-## **Requisitos para o projeto**
+## Tecnologias Utilizadas
 
-### **Tecnologias Utilizadas**
-
-- **Front-end**:
-
-  - HTML
-  - CSS
+- **Front-end:**  
+  - HTML  
+  - CSS  
   - JavaScript
 
-- **Back-end**:
-
-  - PHP
+- **Back-end:**  
+  - PHP  
   - MySQL (via PHPMyAdmin no XAMPP)
 
-- **Controle de versão**:
+- **Controle de Versão:**  
   - Git
-
-### **Ambiente Necessário**
-
-1. **Servidor Local**:
-   - XAMPP instalado para configurar o servidor Apache e o banco de dados MySQL.
-2. **Navegador**:
-   - Qualquer navegador moderno (ex.: Google Chrome, Mozilla Firefox).
-3. **Editor de Código**:
-   - Recomendado: Visual Studio Code com extensões para PHP, HTML e CSS.
 
 ---
 
@@ -99,6 +99,7 @@ CREATE TABLE chamados_manutencao (
     local_tipo VARCHAR(50) NOT NULL,
     local_identificacao VARCHAR(50) NOT NULL,
     descricao TEXT NOT NULL,
+    status ENUM('Aberto', 'Concluído') DEFAULT 'Aberto', -- Adicionado
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -109,6 +110,7 @@ CREATE TABLE chamados_limpeza (
     local_tipo VARCHAR(50) NOT NULL,
     local_identificacao VARCHAR(50) NOT NULL,
     descricao TEXT NOT NULL,
+    status ENUM('Aberto', 'Concluído') DEFAULT 'Aberto', -- Adicionado
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -119,6 +121,7 @@ CREATE TABLE chamados_seguranca (
     local_tipo VARCHAR(50) NOT NULL,
     local_identificacao VARCHAR(50) NOT NULL,
     descricao TEXT NOT NULL,
+    status ENUM('Aberto', 'Concluído') DEFAULT 'Aberto', -- Adicionado
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -129,18 +132,18 @@ CREATE TABLE chamados_saude (
     local_tipo VARCHAR(50) NOT NULL,
     local_identificacao VARCHAR(50) NOT NULL,
     descricao TEXT NOT NULL,
+    status ENUM('Aberto', 'Concluído') DEFAULT 'Aberto', -- Adicionado
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela contate-nos
-CREATE TABLE chamados_contate (
+-- Tabela para administradores
+CREATE TABLE IF NOT EXISTS admin_login (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    assunto VARCHAR(100) NOT NULL,
-    mensagem TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    admin_username VARCHAR(50) NOT NULL UNIQUE,
+    admin_password VARCHAR(255) NOT NULL  -- senha armazenada com password_hash()
 );
+
+INSERT INTO admin_login (admin_username, admin_password) VALUES ('admin', 'hash gerada');
 ```
 
 ### 3. Configurar o Código do Projeto:
@@ -177,53 +180,53 @@ CREATE TABLE chamados_contate (
 
    ```
 
-4. Abra o navegador e acesse `http://localhost/CampusCare-Unipe/00-public/index.php`.
+4. Abra o navegador e acesse
+   área do usuário: `http://localhost/CampusCare-Unipe/00-public/index.php`.
+   área administrativa: `http://localhost/CampusCare-Unipe/02-admin/admin_home.php`.
 
 ---
 
-## **Estrutura do Projeto**
+## Estrutura do Projeto
 
 ```plaintext
 📁 CampusCare-Unipê
 ├── 📂 00-public
+│   ├── 📂 assets       # Recursos do projeto (CSS, images, JS, webfonts)
+│   ├── blocos.php
 │   └── index.php       # Página inicial do projeto
-├── 📂 assets           # Recursos do projeto
-│   ├── 📂 css
-│   │   ├── bg.gif
-│   │   ├── bgs.jpg
-│   │   ├── buttons.css
-│   │   ├── fontawesome-all.min.css
-│   │   ├── main.css
-│   │   ├── noscript.css
-│   │   └── overlay.png
-│   ├── 📂 images
-│   │   ├── campus.jpg  # Imagem do mapa do campus
-│   │   └── mapa.png    # Imagem detalhada do mapa
-│   ├── 📂 js
-│   │   ├── breakpoints.min.js
-│   │   ├── browser.min.js
-│   │   ├── jquery.min.js
-│   │   └── main.js
-│   └── 📂 webfonts     # Fontes utilizadas no projeto
-├── 📂 01-includes      # Arquivos PHP para funcionalidade interna
-│   ├── contate_nos.php # Página para sugestões de melhorias
-│   ├── db_connection.php # Configuração do banco de dados
-│   └── processar.php   # Processamento de formulários
-├── 📂 02-sql
-│   └── create_database.sql # Script para criação do banco de dados
+│
+├── 📂 01-includes      # Arquivos PHP para funcionalidades internas
+│   ├── db_connection.php  # Configuração do banco de dados
+│   └── processar.php      # Processamento de formulários
+│
+├── 📂 02-admin         # Área administrativa do sistema
+│   ├── 📂 templates    # Modelos de páginas para administração
+│   │   ├── admin_home_template.php
+│   │   ├── admin_login_template.php
+│   │   ├── admin_service_template.php
+│   ├── admin_concluir_chamado.php
+│   ├── admin_home.php
+│   ├── admin_login.php
+│   ├── admin_logout.php
+│   ├── admin_register.php
+│   └── admin_service.php
+│
+├── 📂 03-sql
+│   └── create_database.sql  # Script para criação do banco de dados
+│
+├── 📂 scripts
+│   └── generate_admin_hash.php  # Script para geração de hash de senha do admin
+│
 ├── .gitignore          # Arquivo para exclusões no versionamento Git
-├── README.md           # Documentação do projeto
-
+├── README.en.md        # Documentação em inglês
+└── README.md           # Documentação do projeto
 ```
 
 ---
 
 ## **Melhorias Futuras**
 
-- Sistema de Estatísticas para Administradores:
-  Desenvolvimento de um painel de controle que exibirá estatísticas baseadas nos dados armazenados no banco de dados.
 - Reestruturar o diretório adotando o padrão MVC.
-- Tela admin para cada área responsável.
 - Permitir o acompanhamento do status do chamado.
 - Implementar notificações para os responsáveis pelos chamados.
 
