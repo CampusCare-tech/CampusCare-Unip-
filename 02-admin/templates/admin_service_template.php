@@ -242,7 +242,11 @@ $serviceNames = [
                         <th>Local Identificação</th>
                         <th>Descrição</th>
                         <th>Data Criação</th>
-                        <th>Ações</th>
+                        <?php if ($filter === 'concluido'): ?>
+                            <th>Status</th>
+                        <?php else: ?>
+                            <th>Ações</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -255,12 +259,16 @@ $serviceNames = [
                             <td><?php echo htmlspecialchars($record['descricao']); ?></td>
                             <td><?php echo htmlspecialchars($record['data_criacao']); ?></td>
                             <td>
-                                <div class="action-buttons">
-                                    <button class="complete" data-tooltip="Marcar como Concluído" onclick="concluirChamado(<?php echo $record['id']; ?>)">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <!-- Botão de exclusão removido -->
-                                </div>
+                                <?php if ($filter === 'concluido'): ?>
+                                    Concluído
+                                <?php else: ?>
+                                    <div class="action-buttons">
+                                        <button class="complete" data-tooltip="Marcar como Concluído" onclick="concluirChamado(<?php echo $record['id']; ?>)">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <!-- Botão de exclusão removido -->
+                                    </div>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
