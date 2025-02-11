@@ -1,5 +1,5 @@
 <?php
-// Verificação condicional para inicio de sessão
+// Inicia a sessão se necessário
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -14,6 +14,9 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 include_once '../01-includes/db_connection.php';
 $dbConnection = conectar();
 
+// Define o filtro (padrão: 'aberto')
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
+
 // Função para calcular a porcentagem de chamados concluídos
 function calcularPorcentagemConcluidos($dbConnection, $tabela) {
     $queryTotal = "SELECT COUNT(*) as total FROM $tabela";
@@ -25,7 +28,7 @@ function calcularPorcentagemConcluidos($dbConnection, $tabela) {
     return ($total > 0) ? round(($concluidos / $total) * 100, 2) : 0;
 }
 
-// Consulta o total de chamados abertos e concluídos
+// Consulta os totais dos chamados para todas as áreas
 $tabelas = ['chamados_manutencao', 'chamados_limpeza', 'chamados_saude', 'chamados_seguranca'];
 $totalAbertos = 0;
 $totalConcluidos = 0;
@@ -60,22 +63,22 @@ $dbConnection->close();
         .navbar {
             background-color: #4e73df;
             color: white;
-            padding: 20px 20px;
+            padding: 20px;
             display: flex;
-            justify-content: flex-end; /* Alinha o botão de logout à direita */
+            justify-content: flex-end;
             align-items: center;
-            position: relative; /* Permite posicionamento absoluto dentro do navbar */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra no navbar */
-            margin-bottom: 40px; /* Espaço maior abaixo do título */
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
         }
         .navbar h1 {
             margin: 0;
             font-size: 24px;
-            position: absolute; /* Posiciona o título */
-            left: 50%; /* Move o título para o centro */
-            transform: translateX(-50%); /* Ajusta o posicionamento exato */
-            font-weight: bold; /* Deixa o texto em negrito */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra no texto */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         .logout-button {
             background: none;
@@ -86,17 +89,17 @@ $dbConnection->close();
             transition: transform 0.3s ease;
         }
         .logout-button:hover {
-            transform: scale(1.1); /* Efeito ao passar o mouse */
+            transform: scale(1.1);
         }
         .container {
             padding: 20px;
-            text-align: center; /* Centraliza todo o conteúdo dentro do container */
+            text-align: center;
         }
         .cards {
             display: flex;
             gap: 20px;
-            margin-bottom: 60px; /* Espaço maior abaixo dos cartões */
-            justify-content: center; /* Centraliza os cards horizontalmente */
+            margin-bottom: 60px;
+            justify-content: center;
         }
         .card {
             background-color: white;
@@ -105,32 +108,35 @@ $dbConnection->close();
             padding: 30px;
             flex: 1;
             text-align: center;
-            max-width: 200px; /* Limita a largura dos cards */
+            max-width: 200px;
+            cursor: pointer;
+            transition: border 0.3s ease;
+        }
+        .card.active {
+            border: 3px solid #375ab4;
         }
         .card h2 {
             margin: 0;
             font-size: 20px;
             color: #4e73df;
-            font-weight: bold; /* Texto em negrito */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra no texto */
+            font-weight: bold;
             padding: 10px 30px;
         }
         .card p {
             font-size: 24px;
             font-weight: bold;
             color: #333333;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra no texto */
             margin-top: 30px;
         }
         h2 {
             font-size: 24px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra no texto */
-            margin-bottom: 60px; /* Espaço maior abaixo do título */
+            margin-bottom: 60px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
         .buttons {
             display: flex;
             gap: 10px;
-            justify-content: center; /* Centraliza os botões horizontalmente */
+            justify-content: center;
         }
         .buttons a {
             text-decoration: none;
@@ -144,10 +150,9 @@ $dbConnection->close();
             border-radius: 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-weight: bold; /* Texto em negrito */
+            font-weight: bold;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra no texto */
-            width: 200px; /* Largura fixa para todos os botões */
+            width: 200px;
         }
         .buttons button:hover {
             background-color: #375ab4;
@@ -156,20 +161,20 @@ $dbConnection->close();
 </head>
 <body>
     <div class="navbar">
-        <h1>Administrativa - CampusCare</h1> <!-- Título centralizado -->
+        <h1>Administrativa - CampusCare</h1>
         <button class="logout-button" onclick="window.location.href='admin_logout.php'">
-            <i class="fas fa-power-off"></i> <!-- Ícone de power do FontAwesome -->
+            <i class="fas fa-power-off"></i>
         </button>
     </div>
 
     <div class="container">
         <div class="cards">
-            <div class="card">
+            <div class="card <?php echo ($filter=='aberto' ? 'active' : ''); ?>" onclick="window.location.href='admin_home.php?filter=aberto'">
                 <h2>Chamados Abertos</h2>
                 <p><?php echo $totalAbertos; ?></p>
             </div>
-            <div class="card">
-                <h2>Chamados Resolvidos</h2>
+            <div class="card <?php echo ($filter=='concluido' ? 'active' : ''); ?>" onclick="window.location.href='admin_home.php?filter=concluido'">
+                <h2>Chamados Concluídos</h2>
                 <p><?php echo $totalConcluidos; ?></p>
             </div>
             <div class="card">
@@ -179,10 +184,10 @@ $dbConnection->close();
         </div>
         <h2>Selecione a área de serviço para manipular os chamados</h2>
         <div class="buttons">
-            <a href="admin_service.php?service=manutencao"><button>Manutenção</button></a>
-            <a href="admin_service.php?service=limpeza"><button>Limpeza</button></a>
-            <a href="admin_service.php?service=saude"><button>Saúde</button></a>
-            <a href="admin_service.php?service=seguranca"><button>Segurança</button></a>
+            <a href="admin_service.php?service=manutencao&filter=<?php echo $filter; ?>"><button>Manutenção</button></a>
+            <a href="admin_service.php?service=limpeza&filter=<?php echo $filter; ?>"><button>Limpeza</button></a>
+            <a href="admin_service.php?service=saude&filter=<?php echo $filter; ?>"><button>Saúde</button></a>
+            <a href="admin_service.php?service=seguranca&filter=<?php echo $filter; ?>"><button>Segurança</button></a>
         </div>
     </div>
 </body>

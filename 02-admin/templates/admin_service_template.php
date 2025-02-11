@@ -1,5 +1,5 @@
 <?php
-// Verificação condicional para inicio de sessão
+// Inicia a sessão se necessário
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,47 +10,13 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit();
 }
 
-// Verifica se o parâmetro 'service' foi informado
+// Verifica se os parâmetros necessários foram informados
 if (!isset($_GET['service'])) {
     die("Serviço não especificado.");
 }
 
 $service = $_GET['service'];
-
-// Mapeamento dos parâmetros para os nomes das tabelas correspondentes
-$validServices = [
-    'manutencao' => 'chamados_manutencao',
-    'limpeza'    => 'chamados_limpeza',
-    'saude'      => 'chamados_saude',
-    'seguranca'  => 'chamados_seguranca'
-];
-
-// Valida se o serviço informado é válido
-if (!array_key_exists($service, $validServices)) {
-    die("Serviço inválido.");
-}
-
-$tableName = $validServices[$service];
-
-// Inclui a conexão com o banco de dados
-include_once '../01-includes/db_connection.php';
-$dbConnection = conectar();
-
-// Consulta os registros da tabela selecionada, ordenando os mais recentes primeiro
-$query = "SELECT * FROM $tableName ORDER BY data_criacao DESC";
-$result = $dbConnection->query($query);
-
-if (!$result) {
-    die("Erro na consulta: " . $dbConnection->error);
-}
-
-$records = [];
-while ($row = $result->fetch_assoc()) {
-    $records[] = $row;
-}
-
-// Fecha a conexão com o banco
-$dbConnection->close();
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +35,7 @@ $dbConnection->close();
         .navbar {
             background-color: #4e73df;
             color: white;
-            padding: 20px 20px;
+            padding: 20px;
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -101,6 +67,34 @@ $dbConnection->close();
             padding: 20px;
             text-align: center;
         }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #4e73df;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .filter-buttons {
+            margin-bottom: 20px;
+        }
+        .filter-buttons a {
+            text-decoration: none;
+        }
+        .filter-buttons button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4e73df;
+            color: white;
+        }
+        .filter-buttons button.active {
+            background-color: #375ab4;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -125,7 +119,7 @@ $dbConnection->close();
             background-color: #ddd;
         }
         .concluido {
-            background-color: rgb(92, 243, 128) !important; /* Verde claro */
+            background-color: rgb(92, 243, 128) !important;
             transition: background-color 0.5s ease;
         }
         .action-buttons {
@@ -145,67 +139,20 @@ $dbConnection->close();
             background-color: #28a745;
             color: white;
         }
+        /* Botão de exclusão removido */
         .action-buttons button.delete {
-            background-color: #dc3545;
-            color: white;
+            display: none;
         }
         .action-buttons button:hover {
             opacity: 0.8;
-        }
-        .action-buttons button::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 5px;
-            border-radius: 3px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        .action-buttons button:hover::after {
-            opacity: 1;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #4e73df;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        .fade-out {
-            animation: fadeOut 0.5s ease forwards;
-        }
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
         }
         .highlight-concluido {
             animation: highlightConcluido 1.5s ease;
         }
         @keyframes highlightConcluido {
-            0% {
-                background-color: #f2f2f2;
-            }
-            50% {
-                background-color: #d4edda;
-            }
-            100% {
-                background-color: #d4edda;
-            }
+            0% { background-color: #f2f2f2; }
+            50% { background-color: #d4edda; }
+            100% { background-color: #d4edda; }
         }
     </style>
 </head>
@@ -218,11 +165,20 @@ $dbConnection->close();
     </div>
 
     <div class="container">
-        <a class="back-link" href="admin_home.php">
+        <a class="back-link" href="admin_home.php?filter=<?php echo $filter; ?>">
             <i class="fa-solid fa-house"></i>
             <i class="fas fa-arrow-left"></i> Voltar para Home
         </a>
         <h1>Chamados de <?php echo ucfirst($service); ?></h1>
+
+        <div class="filter-buttons">
+            <a href="admin_service.php?service=<?php echo $service; ?>&filter=aberto">
+                <button class="<?php echo ($filter=='aberto' ? 'active' : ''); ?>">Abertos</button>
+            </a>
+            <a href="admin_service.php?service=<?php echo $service; ?>&filter=concluido">
+                <button class="<?php echo ($filter=='concluido' ? 'active' : ''); ?>">Concluídos</button>
+            </a>
+        </div>
 
         <?php if (count($records) > 0): ?>
             <table>
@@ -238,19 +194,7 @@ $dbConnection->close();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    // Recupera os IDs dos chamados excluídos do localStorage
-                    echo "<script>
-                        const chamadosExcluidos = JSON.parse(localStorage.getItem('chamadosExcluidos')) || [];
-                    </script>";
-
-                    foreach ($records as $record):
-                        echo "<script>
-                            if (chamadosExcluidos.includes({$record['id']})) {
-                                document.write('');
-                            } else {
-                        </script>";
-                    ?>
+                    <?php foreach ($records as $record): ?>
                         <tr id="chamado-<?php echo $record['id']; ?>" class="<?php echo ($record['status'] === 'Concluído') ? 'concluido' : ''; ?>">
                             <td><?php echo htmlspecialchars($record['id']); ?></td>
                             <td><?php echo htmlspecialchars($record['bloco']); ?></td>
@@ -263,16 +207,11 @@ $dbConnection->close();
                                     <button class="complete" data-tooltip="Marcar como Concluído" onclick="concluirChamado(<?php echo $record['id']; ?>)">
                                         <i class="fas fa-check"></i>
                                     </button>
-                                    <button class="delete" data-tooltip="Excluir" onclick="excluirChamado(<?php echo $record['id']; ?>)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <!-- Botão de exclusão removido -->
                                 </div>
                             </td>
                         </tr>
-                    <?php
-                        echo "<script>}</script>";
-                    endforeach;
-                    ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
@@ -286,38 +225,10 @@ $dbConnection->close();
                 const chamado = document.getElementById(`chamado-${id}`);
                 chamado.classList.add('concluido', 'highlight-concluido');
                 setTimeout(() => {
-                    window.location.href = `admin_concluir_chamado.php?id=${id}&service=<?php echo $service; ?>`;
-                }, 1500); // Tempo da animação
+                    window.location.href = `admin_concluir_chamado.php?id=${id}&service=<?php echo $service; ?>&filter=<?php echo $filter; ?>`;
+                }, 1500);
             }
         }
-
-        function excluirChamado(id) {
-            if (confirm("Deseja remover este chamado?")) {
-                const chamado = document.getElementById(`chamado-${id}`);
-                chamado.classList.add('fade-out');
-                setTimeout(() => {
-                    // Remove o chamado
-                    chamado.remove();
-                    // Armazena o ID do chamado excluído no localStorage
-                    const chamadosExcluidos = JSON.parse(localStorage.getItem('chamadosExcluidos')) || [];
-                    if (!chamadosExcluidos.includes(id)) {
-                        chamadosExcluidos.push(id);
-                        localStorage.setItem('chamadosExcluidos', JSON.stringify(chamadosExcluidos));
-                    }
-                }, 500); // Tempo da animação
-            }
-        }
-
-        // Filtra os chamados excluídos ao carregar a página
-        document.addEventListener('DOMContentLoaded', () => {
-            const chamadosExcluidos = JSON.parse(localStorage.getItem('chamadosExcluidos')) || [];
-            chamadosExcluidos.forEach(id => {
-                const chamado = document.getElementById(`chamado-${id}`);
-                if (chamado) {
-                    chamado.remove();
-                }
-            });
-        });
     </script>
 </body>
 </html>

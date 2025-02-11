@@ -11,6 +11,7 @@ if (!isset($_GET['id']) || !isset($_GET['service'])) {
 
 $id = $_GET['id'];
 $service = $_GET['service'];
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
 
 $validServices = [
     'manutencao' => 'chamados_manutencao',
@@ -25,7 +26,7 @@ if (!array_key_exists($service, $validServices)) {
 
 $tableName = $validServices[$service];
 
-include_once '../01-includes/db_connection.php'; // Usando include_once
+include_once '../01-includes/db_connection.php';
 $dbConnection = conectar();
 
 $query = "UPDATE $tableName SET status = 'Concluído' WHERE id = ?";
@@ -35,6 +36,6 @@ $stmt->execute();
 
 $dbConnection->close();
 
-header("Location: admin_service.php?service=$service");
+header("Location: admin_service.php?service=$service&filter=$filter");
 exit();
 ?>

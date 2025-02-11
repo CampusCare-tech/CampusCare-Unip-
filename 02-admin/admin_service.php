@@ -1,5 +1,5 @@
 <?php
-// Verificação condicional para inicio de sessão
+// Inicia a sessão se necessário
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,14 +10,15 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit();
 }
 
-// Verifica se o parâmetro 'service' foi informado
+// Verifica se os parâmetros necessários foram informados
 if (!isset($_GET['service'])) {
     die("Serviço não especificado.");
 }
 
 $service = $_GET['service'];
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto'; // Filtro: 'aberto' ou 'concluido'
 
-// Mapeamento dos parâmetros para os nomes das tabelas correspondentes
+// Mapeamento dos serviços para as tabelas correspondentes
 $validServices = [
     'manutencao' => 'chamados_manutencao',
     'limpeza'    => 'chamados_limpeza',
@@ -25,7 +26,6 @@ $validServices = [
     'seguranca'  => 'chamados_seguranca'
 ];
 
-// Valida se o serviço informado é válido
 if (!array_key_exists($service, $validServices)) {
     die("Serviço inválido.");
 }
@@ -36,8 +36,13 @@ $tableName = $validServices[$service];
 include_once '../01-includes/db_connection.php';
 $dbConnection = conectar();
 
-// Consulta os registros da tabela selecionada, ordenando os mais recentes primeiro
-$query = "SELECT * FROM $tableName ORDER BY data_criacao DESC";
+// Constrói a query com base no filtro
+if ($filter === 'concluido') {
+    $query = "SELECT * FROM $tableName WHERE status = 'Concluído' ORDER BY data_criacao DESC";
+} else {
+    $query = "SELECT * FROM $tableName WHERE status != 'Concluído' ORDER BY data_criacao DESC";
+}
+
 $result = $dbConnection->query($query);
 
 if (!$result) {
