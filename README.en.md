@@ -1,146 +1,149 @@
-# **CampusCare-Unipê**
+# CampusCare-Unipê
 
-![Status](https://img.shields.io/badge/status-In%20Development-orange)
-[![Language: PT-BR](https://img.shields.io/badge/Language-Portuguese-green)](README.md)
+[![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-orange)](README.md)
+[![Language: PT-BR](https://img.shields.io/badge/Linguagem-Português-green)](README.md)
 [![Language: EN](https://img.shields.io/badge/Language-English-red)](README.en.md)
 
-**Optimizing campus maintenance and safety with the help of students.**
+**Optimizing campus maintenance and security with the collaboration of students and administrative teams.**
 
 ---
 
 ## **Project Description**
 
-**CampusCare-Unipê** is a web system designed to streamline communication between students and administrative areas of educational institutions, enabling quick identification and resolution of campus needs.
+CampusCare-Unipê** is a web system designed to facilitate communication between students and the administrative areas of educational institutions, allowing the identification and agile resolution of needs on campus.
 
-Students can report issues or needs in specific campus blocks, such as maintenance, cleaning, security, or health, directly to the responsible teams, promoting a more organized and safer environment.
+Students can report problems or needs in specific blocks of the institution, such as maintenance, cleaning, security or health, directly to those responsible, promoting a more organized and secure environment.
 
 ---
 
-## **Features**
+## **Functionalities**
 
-### **Student Workflow**
+### **Student use flow**
 
 1. **Select the block**:
 
-   - Initial interface displaying available campus blocks.
+   - Initial interface with the available campus blocks.
 
 2. **Select the area within the block**:
 
-   - Buttons to choose the area needing assistance (e.g., classroom, restroom, elevator).
+   - Buttons to choose the area that needs assistance (e.g. room, bathroom, elevator).
 
-3. **Provide the exact location**:
+3. **Enter exact location**:
 
-   - Form to input details (e.g., "Room A23," "2nd-floor men's restroom").
+   - Form to enter details (e.g. “Room A23”, “2nd floor men's restroom”).
 
 4. **Choose the type of assistance**:
 
    - Buttons for categories such as **maintenance**, **cleaning**, **security**, or **health**.
 
-5. **Describe the issue**:
+5. **Describe the problem**:
 
-   - Form to detail the need (e.g., "air conditioner not working," "computer 345 broken").
+   - Form to detail the need (e.g. “air conditioning not working”, “computer 345 broken”).
 
-6. **Automatic forwarding to the responsible area**:
-   - Data is sent to the corresponding database table and will be available for the responsible administrative team.
+6. **Automatic forwarding to the area responsible**:
+   - Data is sent to the corresponding table in the database and will be available to the area's administration team.
+
+
+### Administrative Area
+
+- Statistics dashboard  
+  The home page of the administrative area displays cards with call statistics:  
+  - Open Calls  
+  - Calls Completed  
+  - Resolution Rate  
+  These cards are interactive, allowing the administrator to select which set of calls they wish to view.
+
+- Call filtering  
+  When you click on one of the cards (e.g. Open or Completed Calls), the system updates the service button links (maintenance, cleaning, health or security) to show the corresponding list, without altering the database.
 
 ---
 
-## **Project Requirements**
+## Technologies Used
 
-### **Technologies Used**
-
-- **Front-end**:
-
-  - HTML
-  - CSS
+- Front-end  
+  - HTML  
+  - CSS  
   - JavaScript
 
-- **Back-end**:
-
-  - PHP
+- **Back-end:**  
+  - PHP  
   - MySQL (via PHPMyAdmin in XAMPP)
 
-- **Version Control**:
+- Version control:**  
   - Git
-
-### **Required Environment**
-
-1. **Local Server**:
-   - XAMPP installed to configure Apache server and MySQL database.
-2. **Browser**:
-   - Any modern browser (e.g., Google Chrome, Mozilla Firefox).
-3. **Code Editor**:
-   - Recommended: Visual Studio Code with extensions for PHP, HTML, and CSS.
 
 ---
 
-## **Environment Setup**
+## **Environment configuration**
 
 ### 1. Install XAMPP:
 
-- Download and install XAMPP from its [official page](https://www.apachefriends.org/index.html).
+- Download XAMPP from its [official website](https://www.apachefriends.org/index.html) and install.
 - Start the **Apache** and **MySQL** services in the control panel.
 
 ### 2. Configure the Database:
 
-- Access **PHPMyAdmin** in your browser via `http://localhost/phpmyadmin`.
-- Create a database named `unipe_campuscare_db`.
-- Execute the following SQL script to create the tables:
+- Access **PHPMyAdmin** in the browser via `http://localhost/phpmyadmin`.
+- Create a database with the name `unipe_campuscare_db`.
+- Run the following SQL script to create the tables:
 
 ```sql
 -- Database creation
 CREATE DATABASE IF NOT EXISTS unipe_campuscare_db;
 USE unipe_campuscare_db;
 
--- Maintenance requests table
-CREATE TABLE chamados_manutencao (
+-- Table for maintenance calls
+CREATE TABLE maintenance_calls (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bloco VARCHAR(100) NOT NULL,
-    local_tipo VARCHAR(50) NOT NULL,
-    local_identificacao VARCHAR(50) NOT NULL,
-    descricao TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    block VARCHAR(100) NOT NULL,
+    local_type VARCHAR(50) NOT NULL,
+    local_identification VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('Open', 'Completed') DEFAULT 'Open', -- Added
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Cleaning requests table
-CREATE TABLE chamados_limpeza (
+-- Table for cleaning tickets
+CREATE TABLE cleaning_calls (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bloco VARCHAR(100) NOT NULL,
-    local_tipo VARCHAR(50) NOT NULL,
-    local_identificacao VARCHAR(50) NOT NULL,
-    descricao TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    block VARCHAR(100) NOT NULL,
+    local_type VARCHAR(50) NOT NULL,
+    local_identification VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('Open', 'Completed') DEFAULT 'Open', -- Added
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Security requests table
-CREATE TABLE chamados_seguranca (
+-- Table for security calls
+CREATE TABLE security_calls (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bloco VARCHAR(100) NOT NULL,
-    local_tipo VARCHAR(50) NOT NULL,
-    local_identificacao VARCHAR(50) NOT NULL,
-    descricao TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    block VARCHAR(100) NOT NULL,
+    local_type VARCHAR(50) NOT NULL,
+    local_identification VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('Open', 'Completed') DEFAULT 'Open', -- Added
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Health requests table
-CREATE TABLE chamados_saude (
+-- Table for health calls
+CREATE TABLE health_calls (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bloco VARCHAR(100) NOT NULL,
-    local_tipo VARCHAR(50) NOT NULL,
-    local_identificacao VARCHAR(50) NOT NULL,
-    descricao TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    block VARCHAR(100) NOT NULL,
+    local_type VARCHAR(50) NOT NULL,
+    local_identification VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('Open', 'Completed') DEFAULT 'Open', -- Added
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Contact-us table
-CREATE TABLE chamados_contate (
+-- Table for administrators
+CREATE TABLE IF NOT EXISTS admin_login (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    assunto VARCHAR(100) NOT NULL,
-    mensagem TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    admin_username VARCHAR(50) NOT NULL UNIQUE,
+    admin_password VARCHAR(255) NOT NULL -- password stored with password_hash()
 );
+
+INSERT INTO admin_login (admin_username, admin_password) VALUES ('admin', 'generated hash');
 ```
 
 ### 3. Configure the Project Code:
@@ -149,85 +152,88 @@ CREATE TABLE chamados_contate (
    ```bash
    git clone https://github.com/CampusCare-tech/CampusCare-Unipe.git
    ```
-2. Move the files to the `htdocs` folder in XAMPP.
-3. Ensure the PHP files and the database are correctly connected:
+2. Move the files to the XAMPP `htdocs` folder.
+3. Make sure that the PHP files and the database are connected correctly:
 
-   - Configure the `db_connection.php` file with the database details:
+   - Configure the `db_connection.php` file with the database data:
 
    ```php
    <?php
-    function conectar() {
+    function connect() {
       // Database settings
       $host = 'localhost';
       $user = 'root';
       $password = '';
       $dbname = 'unipe_campuscare_db';
 
-      // Creating the connection
+      // Connection creation
       $dbConnection = new mysqli($host, $user, $password, $dbname);
 
-      // Check for connection errors
+      // Checks for errors in the connection
       if ($dbConnection->connect_error) {
-          die("Connection failed: " . $dbConnection->connect_error);
+          die("Connection failed: ” . $dbConnection->connect_error);
       }
 
-      return $dbConnection; // Returns the connection object
+      return $dbConnection; // Return the connection object
     }
    ?>
+
    ```
 
-4. Open your browser and access `http://localhost/CampusCare-Unipe/00-public/index.php`.
+
+4. Open your browser and go to
+   user area: `http://localhost/CampusCare-Unipe/00-public/index.php`.
+   administrative area: `http://localhost/CampusCare-Unipe/02-admin/admin_home.php`.
 
 ---
 
-## **Project Structure**
+## Project structure
 
 ```plaintext
 📁 CampusCare-Unipê
 ├── 📂 00-public
-│   └── index.php       # Project homepage
-├── 📂 assets           # Project resources
-│   ├── 📂 css
-│   │   ├── bg.gif
-│   │   ├── bgs.jpg
-│   │   ├── buttons.css
-│   │   ├── fontawesome-all.min.css
-│   │   ├── main.css
-│   │   ├── noscript.css
-│   │   └── overlay.png
-│   ├── 📂 images
-│   │   ├── campus.jpg  # Campus map image
-│   │   └── mapa.png    # Detailed map image
-│   ├── 📂 js
-│   │   ├── breakpoints.min.js
-│   │   ├── browser.min.js
-│   │   ├── jquery.min.js
-│   │   └── main.js
-│   └── 📂 webfonts     # Fonts used in the project
-├── 📂 01-includes      # Internal PHP functionality files
-│   ├── contate_nos.php # Page for improvement suggestions
-│   ├── db_connection.php # Database configuration
-│   └── processar.php   # Form processing
-├── 📂 02-sql
-│   └── create_database.sql # Script for database creation
-├── .gitignore          # File for versioning exclusions in Git
-├── README.md           # Project documentation
-
+│ ├── 📂 assets # Project assets (CSS, images, JS, webfonts)
+│ ├── blocks.php
+│ └── index.php # Project home page
+│
+├── 📂 01-includes # PHP files for internal functionality
+│ ├── db_connection.php # Database configuration
+│ └── process.php # Forms processing
+│
+├── 📂 02-admin # System admin area
+│ ├── 📂 templates # Administration page templates
+│ │ ├── admin_home_template.php
+│ │ ├── admin_login_template.php
+│ │ ├── admin_service_template.php
+│ ├── admin_complete_call.php
+│ ├── admin_home.php
+│ ├── admin_login.php
+│ ├── admin_logout.php
+│ ├── admin_register.php
+│ └── admin_service.php
+│
+├── 📂 03-sql
+│ └── create_database.sql # Script for creating the database
+│
+├── 📂 scripts
+│ └── generate_admin_hash.php # Script for generating admin password hash
+│
+├── .gitignore # File for deletions in Git versioning
+├── README.en.md # Documentation in English
+└── README.md # Project documentation
 ```
 
 ---
 
 ## **Future Improvements**
 
-- **Admin Dashboard with Statistics**: Develop a control panel to display statistics based on stored data.
-- **Restructure Directory**: Adopt the MVC pattern.
-- **Admin Pages**: Create specific admin interfaces for each responsible area.
-- **Request Tracking**: Enable users to track the status of their requests.
-- **Notifications**: Implement notifications for the responsible teams.
+- Restructure the directory adopting the MVC standard.
+- Allow monitoring of ticket status.
+- Implement notifications for call handlers.
 
 ## **Contributors**
 
-Special thanks to everyone involved in the development of this project:
+Thanks to everyone who contributed to the development of this project:
 
 - [Rafael Magno G.](https://github.com/rafaelmagnog)
 - [Levi Adler](https://github.com/LeviAdler05)
