@@ -36,7 +36,7 @@ $tableName = $validServices[$service];
 include_once '../01-includes/db_connection.php';
 $dbConnection = conectar();
 
-// Constrói a query com base no filtro
+// Constrói a query para obter os registros com base no filtro selecionado
 if ($filter === 'concluido') {
     $query = "SELECT * FROM $tableName WHERE status = 'Concluído' ORDER BY data_criacao DESC";
 } else {
@@ -54,9 +54,23 @@ while ($row = $result->fetch_assoc()) {
     $records[] = $row;
 }
 
+// Consulta para obter o número de chamados abertos no serviço
+$queryAbertos = "SELECT COUNT(*) as abertos FROM $tableName WHERE status != 'Concluído'";
+$resultAbertos = $dbConnection->query($queryAbertos);
+$abertos = $resultAbertos->fetch_assoc()['abertos'];
+
+// Consulta para obter o número de chamados concluídos no serviço
+$queryConcluidos = "SELECT COUNT(*) as concluidos FROM $tableName WHERE status = 'Concluído'";
+$resultConcluidos = $dbConnection->query($queryConcluidos);
+$concluidos = $resultConcluidos->fetch_assoc()['concluidos'];
+
+// Calcula a taxa de resolução para o serviço
+$taxaResolucao = ($abertos + $concluidos > 0) ? round(($concluidos / ($abertos + $concluidos)) * 100, 2) : 0;
+
+
 // Fecha a conexão com o banco
 $dbConnection->close();
 
-// Inclui o template para exibir os chamados
+// Inclui o template para exibir os chamados e as estatísticas do serviço
 include 'templates/admin_service_template.php';
 ?>

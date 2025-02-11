@@ -17,8 +17,15 @@ if (!isset($_GET['service'])) {
 
 $service = $_GET['service'];
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
-?>
 
+// Array de exibição com acentuação correta
+$serviceNames = [
+    'manutencao' => 'Manutenção',
+    'limpeza'    => 'Limpeza',
+    'saude'      => 'Saúde',
+    'seguranca'  => 'Segurança'
+];
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -95,6 +102,31 @@ $filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
         .filter-buttons button.active {
             background-color: #375ab4;
         }
+        /* Seção de Estatísticas Específicas do Serviço */
+        .stats-service {
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        .stats-service h2 {
+            margin-bottom: 10px;
+            font-size: 20px; /* Fonte reduzida */
+        }
+        .stats-service table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .stats-service th, .stats-service td {
+            border: 1px solid #4e73df;  /* Bordas nas células com cor azul */
+            padding: 10px 15px;
+            text-align: center;
+        }
+        .stats-service th {
+            background-color: #4e73df;
+            color: white;
+        }
+        /* Tabela de chamados */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -169,8 +201,28 @@ $filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
             <i class="fa-solid fa-house"></i>
             <i class="fas fa-arrow-left"></i> Voltar para Home
         </a>
-        <h1>Chamados de <?php echo ucfirst($service); ?></h1>
+        <!-- Na exibição, usamos o array de nomes para mostrar o valor com acento -->
+        <h1>Chamados de <?php echo $serviceNames[$service] ?? ucfirst($service); ?></h1>
 
+        <!-- Seção de Estatísticas Específicas do Serviço -->
+        <div class="stats-service">
+            <h2>Estatísticas - <?php echo $serviceNames[$service] ?? ucfirst($service); ?></h2>
+            <table>
+                <tr>
+                    <th>Chamados Abertos</th>
+                    <th>Chamados Concluídos</th>
+                    <th>Taxa de Resolução</th>
+                </tr>
+                <tr>
+                    <td><?php echo $abertos; ?></td>
+                    <td><?php echo $concluidos; ?></td>
+                    <td><?php echo $taxaResolucao; ?>%</td>
+                </tr>
+            </table>
+        </div>
+        <!-- Fim da seção de Estatísticas -->
+
+        <!-- Nos links, passamos o valor interno ($service) sem acentos -->
         <div class="filter-buttons">
             <a href="admin_service.php?service=<?php echo $service; ?>&filter=aberto">
                 <button class="<?php echo ($filter=='aberto' ? 'active' : ''); ?>">Abertos</button>
@@ -225,6 +277,7 @@ $filter = isset($_GET['filter']) ? $_GET['filter'] : 'aberto';
                 const chamado = document.getElementById(`chamado-${id}`);
                 chamado.classList.add('concluido', 'highlight-concluido');
                 setTimeout(() => {
+                    // Use $service sem acento na URL para manter a consistência com a validação no back-end
                     window.location.href = `admin_concluir_chamado.php?id=${id}&service=<?php echo $service; ?>&filter=<?php echo $filter; ?>`;
                 }, 1500);
             }
