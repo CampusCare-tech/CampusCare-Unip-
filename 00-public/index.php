@@ -42,7 +42,7 @@
 						<article id="home" class="panel intro">
 							<header>
 								<h1>Campus Care Unipê</h1> <!-- Título principal da página -->
-								<p>Central de Suporte</p> <!-- Descrição do site -->
+								<h2>Central de Suporte</h2> <!-- Descrição do site -->
 							</header>
 							<a href="#work" class="jumplink pic"> <!-- Link para a seção de denúncias -->
 								<span class="arrow icon solid fa-chevron-right"><span>Clique aqui</span></span>
